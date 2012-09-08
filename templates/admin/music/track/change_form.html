@@ -4,10 +4,14 @@
 <fieldset class="module aligned ">
     <div class ="form-row">
         <div>
-            <label class="required" for="id_extra_field">Extra field</label>
-            <input type="text" maxlength="32" name="extra_field" class="vTextField" id="id_extra_field">
-            <input type="button" value="Get track info" />
+            <label class="required" for="id_spotify_lookup_url">Spotify lookup</label>
+            <input type="text" maxlength="32" name="spotify_lookup_url" class="vTextField" id="id_spotify_lookup_url">
+            <input type="button" id="id_spotify_lookup_button" value="Get track info" />
         </div>
     </div>
 </fieldset>
+{% endblock %}
+{% block extrahead %}{{ block.super }}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/YouSingDotCom.js"></script>
 {% endblock %}
