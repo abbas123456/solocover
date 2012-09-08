@@ -1,6 +1,9 @@
+{% extends "base.html" %}
+{% block primary %}
 <h1>Competitions</h1>
 <ul>
 {% for competition in competitions %}
     <li>{{ competition.name }}</li>
 {% endfor %}
 </ul>
+{% endblock %}

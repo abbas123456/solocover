@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from competition.models import Competition
-from django.template import Context, loader
+from django.template import RequestContext, loader
 
 def list(request):              
     competitions = Competition.objects.all().order_by('-end_date')
-    bindings = Context({
+    bindings = RequestContext(request, {
         'competitions': competitions,                        
     })
     template = loader.get_template('competition/list.html')
