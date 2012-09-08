@@ -62,8 +62,6 @@ STATIC_ROOT = ''
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-STATIC_DOC_ROOT = '/var/www/YouSingDotCom/static/'
-
 # Additional locations of static files
 STATICFILES_DIRS = (
     '/var/www/YouSingDotCom/static',
