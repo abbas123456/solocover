@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+
 from music.models import Track
 
 class Competition(models.Model):
@@ -18,7 +20,6 @@ class Song(models.Model):
     
     def __unicode__(self):
         return self.user
-    
         
 
 

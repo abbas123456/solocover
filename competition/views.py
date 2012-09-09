@@ -1,11 +1,20 @@
-from django.http import HttpResponse
-from competition.models import Competition
-from django.template import RequestContext, loader
+from django.views.generic import DetailView,CreateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-def list(request):              
-    competitions = Competition.objects.all().order_by('-end_date')
-    bindings = RequestContext(request, {
-        'competitions': competitions,                        
-    })
-    template = loader.get_template('competition/list.html')
-    return HttpResponse(template.render(context=bindings));
+class CompetitionDetailView(DetailView):
+    
+    def get_context_data(self, **kwargs):
+        context = super(CompetitionDetailView, self).get_context_data(**kwargs)
+        context['spotify_embed_url'] = 'https://embed.spotify.com/?uri='
+        return context
+
+
+class SongCreateView(CreateView):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SongCreateView, self).dispatch(*args, **kwargs)
+    
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super(SongCreateView, self).form_valid(form)
