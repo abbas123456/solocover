@@ -1,4 +1,15 @@
 {% extends "base.html" %}
 {% block primary %}
-<h1>Add your song</h1>
+<div id="addreview" class="review_add">
+    <form method="post" action="." class="form-horizontal" >
+    <fieldset>
+        <legend>Add song</legend>
+            {% csrf_token %}
+            {% include "partials/form_fields.html" with form=form %}
+            <div class="form-actions">
+                <button type="submit"  class="btn btn-primary">Submit</button>
+            </div>
+    </fieldset>
+    </form>
+</div>
 {% endblock %}
