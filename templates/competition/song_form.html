@@ -2,14 +2,22 @@
 {% block primary %}
 <div id="addreview" class="review_add">
     <form method="post" action="." class="form-horizontal" >
-    <fieldset>
-        <legend>Add song</legend>
-            {% csrf_token %}
-            {% include "partials/form_fields.html" with form=form %}
-            <div class="form-actions">
-                <button type="submit"  class="btn btn-primary">Submit</button>
+        {% csrf_token %}
+        <div class="control-group error">
+            <label class="control-label" for="id_competition">Competition</label>
+            <div class="controls">
+                {{ form.competition }}
+                {% if form.errors.competition %} <span class="help-inline">{{ form.errors.competition }}</span>{% endif %}
             </div>
-    </fieldset>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-info">Save</button>
+            </div>
+        </div>
     </form>
 </div>
 {% endblock %}
+
+
+

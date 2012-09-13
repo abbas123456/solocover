@@ -3,17 +3,37 @@
 <html>
     <head>
         <title>YouSing</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+        
     </head>
 
     <body>
-        <div id="content">
-            <h1>YouSing</h1>{% if user.is_authenticated %}<a href="{% url logout %}?next=/competitions">Log out</a>{% else %}<a href="{% url login %}?next=/competitions">Log in</a>{% endif %}
-            {% block primary %}{% endblock %}
+        <h1><a href="/competitions">YouSing</a></h1>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12 offset11">
+                    {% if user.is_authenticated %}<a href="{% url logout %}?next=/competitions">Log out</a>{% else %}<a href="{% url login %}?next=/competitions">Log in</a>{% endif %}                
+                </div>
+            </div>
+            <div class="row-fluid">
+            <div class="span2">
+                <h3>Genres</h3>
+                <ul class="unstyled">
+                    <li><a href="/competitions">Hip Hop</a></li>
+                    <li><a href="/competitions">Jazz</a></li>
+                    <li><a href="/competitions">Dubstep</a></li>
+                </ul>
+            </div>
+            <div class="span10" id="content">
+                {% block primary %}{% endblock %}
+            </div>
         </div>
-    
+        </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="{{ STATIC_URL }}js/YouSingDotCom.js"></script>
     </body>
 </html>

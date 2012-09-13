@@ -4,5 +4,5 @@
 <h2>{{ object }}</h2>
 <h3>{{ object.track }}</h3>
 <iframe src="{{ spotify_embed_url }}{{ object.track.spotify_uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-<a href="{% url song_create competition.id %}">Enter this competition now</a>
+<p><a href="{% url song_create competition.id %}">Enter this competition now</a></p>
 {% endblock %}
