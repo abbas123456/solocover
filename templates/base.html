@@ -9,7 +9,7 @@
 
     <body>
         <div id="content">
-            <h1>{% block title %}{% endblock %}</h1>
+            <h1>YouSing</h1>{% if user.is_authenticated %}<a href="{% url logout %}?next=/competitions">Log out</a>{% else %}<a href="{% url login %}?next=/competitions">Log in</a>{% endif %}
             {% block primary %}{% endblock %}
         </div>
     
