@@ -1,8 +1,37 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block primary %}
-<h2>{{ object }}</h2>
-<h3>{{ object.track }}</h3>
-<iframe src="{{ spotify_embed_url }}{{ object.track.spotify_uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-<p><a href="{% url song_create competition.id %}">Enter this competition now</a></p>
+<div class="row-fluid">
+    <div class="span4">
+        <h2>{{ object }}</h2>
+        <h3>{{ object.track }}</h3>
+        <iframe src="{{ spotify_embed_url }}{{ object.track.spotify_uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+    <div class="span8">
+    <h2>All entries</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Submission date</th>
+                    <th>Listen</th>
+                    <th>Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for song in songs %}
+                    <tr>
+                        <td>{{ song.id }}</td>
+                        <td>{{ song.user }}</td>
+                        <td>{{ song.created_date }}</td>
+                        <td><a class="btn btn-success" href="#"><i class="icon-headphones icon-white"></i></a></td>
+                        <td><a class="btn btn-primary" href="#"><i class="icon-thumbs-up icon-white"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-primary" href="{% url song_create competition.id %}"><i class="icon-ok icon-white"></i>Enter this competition</a>
+    </div>
+</div>
 {% endblock %}

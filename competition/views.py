@@ -14,11 +14,10 @@ class CompetitionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CompetitionDetailView, self).get_context_data(**kwargs)
         context['spotify_embed_url'] = 'https://embed.spotify.com/?uri='
+        competition_id_kwarg =self.kwargs['pk']
+        context['songs'] = Song.objects.filter(competition_id=competition_id_kwarg)
         return context
 
-class SongListView(ListView):
-    model = Song.objects.all()
-    
 class SongCreateView(CreateView):
     form_class = SongForm
     model = Song    
