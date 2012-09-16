@@ -3,13 +3,6 @@
 <div id="addreview" class="review_add">
     <form method="post" action="." class="form-horizontal" >
         {% csrf_token %}
-        <div class="control-group error">
-            <label class="control-label" for="id_competition">Competition</label>
-            <div class="controls">
-                {{ form.competition }}
-                {% if form.errors.competition %} <span class="help-inline">{{ form.errors.competition }}</span>{% endif %}
-            </div>
-        </div>
         <div class="control-group">
             <div class="controls">
                 <button type="submit" class="btn btn-info">Save</button>
