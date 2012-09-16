@@ -8,7 +8,7 @@
         
         <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" />
-        
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" />
     </head>
 
     <body>
@@ -40,13 +40,15 @@
             <div class="row-fluid">
                 <div class="span3">
                     <h3>Genres</h3>
-                    <ul class="unstyled">
+                    <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
                         <li><a href="/competitions">Hip Hop</a></li>
                         <li><a href="/competitions">Jazz</a></li>
                         <li><a href="/competitions">Dubstep</a></li>
                     </ul>
+                    </div>
                 </div>
-                <div class="span9" id="content">
+                <div class="span9 tab-content" id="content">
                     {% block primary %}{% endblock %}
                 </div>
         </div>

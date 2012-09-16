@@ -1,6 +1,6 @@
 .banner {
     padding: 40px;
-    background: #020031;
+    background-image: -moz-linear-gradient(center top , #0044CC, #0088CC);
     color: white;
 }
 body {
