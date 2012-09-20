@@ -119,8 +119,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'vote',
-    'competition',
     'music',
+    'songthread',
     'south',
     'django.contrib.admindocs',
 )

@@ -8,32 +8,32 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Competition'
-        db.create_table('competition_competition', (
+        # Adding model 'Songthread'
+        db.create_table('songthread_songthread', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=128)),
             ('start_date', self.gf('django.db.models.fields.DateTimeField')()),
             ('end_date', self.gf('django.db.models.fields.DateTimeField')()),
             ('track', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['music.Track'])),
         ))
-        db.send_create_signal('competition', ['Competition'])
+        db.send_create_signal('songthread', ['Songthread'])
 
         # Adding model 'Song'
-        db.create_table('competition_song', (
+        db.create_table('songthread_song', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('competition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['competition.Competition'])),
+            ('songthread', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['songthread.Songthread'])),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('created_date', self.gf('django.db.models.fields.DateTimeField')()),
         ))
-        db.send_create_signal('competition', ['Song'])
+        db.send_create_signal('songthread', ['Song'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Competition'
-        db.delete_table('competition_competition')
+        # Deleting model 'Songthread'
+        db.delete_table('songthread_songthread')
 
         # Deleting model 'Song'
-        db.delete_table('competition_song')
+        db.delete_table('songthread_song')
 
 
     models = {
@@ -66,21 +66,6 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
-        'competition.competition': {
-            'Meta': {'object_name': 'Competition'},
-            'end_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'start_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'track': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['music.Track']"})
-        },
-        'competition.song': {
-            'Meta': {'object_name': 'Song'},
-            'competition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['competition.Competition']"}),
-            'created_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
-        },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -88,20 +73,31 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'music.genre': {
-            'Meta': {'object_name': 'Genre'},
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'})
-        },
         'music.track': {
             'Meta': {'object_name': 'Track'},
-            'artist': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'genre': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['music.Genre']"}),
+            'album': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
+            'artists': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'length': ('django.db.models.fields.FloatField', [], {}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
+            'spotify_uri': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
+            'track_number': ('django.db.models.fields.IntegerField', [], {})
+        },
+        'songthread.song': {
+            'Meta': {'object_name': 'Song'},
+            'created_date': ('django.db.models.fields.DateTimeField', [], {}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'songthread': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['songthread.Songthread']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+        },
+        'songthread.songthread': {
+            'Meta': {'object_name': 'Songthread'},
+            'end_date': ('django.db.models.fields.DateTimeField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'release_date': ('django.db.models.fields.DateTimeField', [], {})
+            'start_date': ('django.db.models.fields.DateTimeField', [], {}),
+            'track': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['music.Track']"})
         }
     }
 
-    complete_apps = ['competition']
+    complete_apps = ['songthread']

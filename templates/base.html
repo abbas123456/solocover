@@ -15,7 +15,7 @@
         <div class="navbar navbar-static-top navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <ul class="nav">
-                    <li class="active"><a href="/competitions">Home</a></li>
+                    <li class="active"><a href="/threads">Home</a></li>
                     <li><a href="#">About us</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>
@@ -25,7 +25,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-pencil"></i>Edit profile</a></li>
                         <li class="divider"></li>
-                        <li>{% if user.is_authenticated %}<a href="{% url logout %}?next=/competitions"><i class="icon-off"></i>Log out</a>{% else %}<a href="{% url login %}?next=/competitions"><i class="icon-ok-circle"></i>Log in</a>{% endif %}</li>
+                        <li>{% if user.is_authenticated %}<a href="{% url logout %}?next=/threads"><i class="icon-off"></i>Log out</a>{% else %}<a href="{% url login %}?next=/threads"><i class="icon-ok-circle"></i>Log in</a>{% endif %}</li>
                     </ul>
                 </div>
              </div>
@@ -42,9 +42,9 @@
                     <h3>Genres</h3>
                     <div class="tabbable tabs-left">
                     <ul class="nav nav-tabs">
-                        <li><a href="/competitions">Hip Hop<i class="icon-chevron-right pull-right"></i></a></li>
-                        <li><a href="/competitions">Jazz<i class="icon-chevron-right pull-right"></i></a></li>
-                        <li><a href="/competitions">Dubstep<i class="icon-chevron-right pull-right"></i></a></li>
+                        <li><a href="/threads">Hip Hop<i class="icon-chevron-right pull-right"></i></a></li>
+                        <li><a href="/threads">Jazz<i class="icon-chevron-right pull-right"></i></a></li>
+                        <li><a href="/threads">Dubstep<i class="icon-chevron-right pull-right"></i></a></li>
                     </ul>
                     </div>
                 </div>

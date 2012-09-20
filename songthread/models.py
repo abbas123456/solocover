@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 
 from music.models import Track
 
-class Competition(models.Model):
+class Songthread(models.Model):
     name = models.CharField(max_length=128)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
@@ -14,7 +13,7 @@ class Competition(models.Model):
         return self.name
     
 class Song(models.Model):
-    competition = models.ForeignKey(Competition)
+    songthread = models.ForeignKey(Songthread)
     user = models.ForeignKey(User)
     created_date = models.DateTimeField()
     
