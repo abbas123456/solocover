@@ -7,6 +7,7 @@ from datetime import datetime
 
 from songthread.forms import SongForm
 from songthread.models import Song, Songthread
+from music.forms import TrackForm
 
 class SongthreadDetailView(DetailView):
     model=Songthread
@@ -17,6 +18,39 @@ class SongthreadDetailView(DetailView):
         songthread_id_kwarg =self.kwargs['pk']
         context['songs'] = Song.objects.filter(songthread_id=songthread_id_kwarg)
         return context
+
+class SongthreadCreateView(CreateView):
+    form_class = TrackForm
+    template_name = 'songthread/songthread_form.html'
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SongthreadCreateView, self).dispatch(*args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super(SongthreadCreateView, self).get_context_data(**kwargs)
+        return context
+    
+    def form_valid(self, form):
+        track = form.save(commit=False)
+        self.populate_track_values(track)
+        track.save()
+        songthread = Songthread()
+        songthread.user = self.request.user
+        songthread.created_date = datetime.now()
+        songthread.track = track
+        songthread.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+    def get_success_url(self):
+        return reverse('songthread_list')
+    
+    def populate_track_values(self, track):
+        track.album='album'
+        track.track_number=1
+        track.length=123
+        track.name='name'
+        track.artists='artists'
 
 class SongCreateView(CreateView):
     form_class = SongForm

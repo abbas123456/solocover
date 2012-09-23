@@ -1,11 +1,15 @@
 from django.forms import ModelForm
-from django.db.models import get_model
+from songthread.models import Song, Songthread
 
-Song = get_model('songthread', 'song')
+class SongthreadForm(ModelForm):
 
-
+    class Meta:
+        model = Songthread
+        exclude = ('user', 'created_date')
+        
 class SongForm(ModelForm):
 
     class Meta:
         model = Song
         exclude = ('user', 'songthread','created_date')
+        

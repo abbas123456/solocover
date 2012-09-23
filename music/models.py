@@ -6,7 +6,7 @@ class Track(models.Model):
     length = models.FloatField()
     name = models.CharField(max_length=128)
     artists = models.CharField(max_length=256)
-    spotify_uri = models.CharField(max_length=36) # spotify:track:5RT0e9PkjBtmvqQzNbe1vA
+    spotify_uri = models.CharField(max_length=36,unique=True) # spotify:track:5RT0e9PkjBtmvqQzNbe1vA
     
     def __unicode__(self):
         return self.name
