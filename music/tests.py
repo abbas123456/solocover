@@ -1,16 +1,20 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from forms import TrackForm
+from models import Track
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class FormsTestCase(TestCase):
+    
+    def test_form_with_valid_spotify_uri_is_valid(self):
+        post_dict = {'spotify_uri': 'spotify:track:5RT0e9PkjBtmvqQzNbe1vA'}
+        form = TrackForm(post_dict)
+        self.assertTrue(form.is_valid())
+        
+    def test_form_with_invalid_spotify_uri_is_invalid(self):
+        post_dict = {'spotify_uri': 'spotify:track:5RTe9PkjBtmvqQzNbe1vA'}
+        form = TrackForm(post_dict)
+        self.assertFalse(form.is_valid())
+        
+    def test_form_with_random_text_is_invalid(self):
+        post_dict = {'spotify_uri': 'hello'}
+        form = TrackForm(post_dict)
+        self.assertFalse(form.is_valid())
