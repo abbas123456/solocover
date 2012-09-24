@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block primary %}
+<p class="lead">Search for a track</p>
 <div class="row-fluid">
     {% include "songthread/spotify_search.html" %}
 </div>
-<p class="lead">Or</p>
+<p class="lead">Or paste a Spotify URI</p>
 <div class="row-fluid">
-    <div id="songthread_create">
+    <div>
         <form method="post" action="." class="form-horizontal" >
             {% csrf_token %}
             {% if form.spotify_uri.errors %}
                 <div class="control-group error">
-                    <label class="control-label" for="id_spotify_uri">Spotify URI</label>
                     <div class="controls">
                         {{ form.spotify_uri }}
                         <span class="help-inline">{{ form.spotify_uri.errors }}</span>
@@ -18,7 +18,6 @@
                 </div>
             {% else %}
                 <div class="control-group">
-                    <label class="control-label" for="id_spotify_uri">Spotify URI</label>
                     <div class="controls">
                     {{ form.spotify_uri }}
                     </div>
