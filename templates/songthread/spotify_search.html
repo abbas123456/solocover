@@ -2,6 +2,8 @@
 
     <form id="spotify_search_form" class="navbar-search pull-left">
         <input id="spotify_search_form_query" type="text" class="search-query" placeholder="Search">
+        <button id="spotify_search_form_search" class="btn btn-success">Search</button>
+        <button id="spotify_search_form_clear" class="btn btn-danger">Clear results</button>
     </form> 
     <br />
     <div id="spotify_search_results_pagination"> </div>
@@ -12,10 +14,11 @@
                 <th>Name</th>
                 <th>Artists</th>
                 <th>Album</th>
+                <th>Choose</th>
             </tr>
         </thead>
         <tbody id="spotify_search_results" >
-            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
     </table>
     

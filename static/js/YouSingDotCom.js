@@ -2,40 +2,62 @@ var music = {
 
 	spotifySearch: function(pageNumber) {
 		$.getJSON('http://ws.spotify.com/search/1/track.json?page='+pageNumber+'&q='+$('#spotify_search_form_query').val(), function(data) {
-			$('#spotify_search_results').html('<tr><td></td><td></td><td></td><td></td></tr>');
+			music.clearSearchResults();
 			var info = data['info'];
-			var numResults = info['num_results'];
+			var numberOfResults = info['num_results'];
 			var offset = info['offset'];
 			var limit = info['limit'];
 			var tracks = data['tracks'];
 			$.each(tracks, function(key, track) {
 				var trackData = "";
+				var name = track['name'];
+				var albumName = track['album']['name'];
+				var albumReleaseDate = track['album']['released'];
+				var spotifyUri  = track['href'];
+					
 				var artistsNames = new Array();
 				$(track['artists']).each(function(index, value){artistsNames[index] = (value['name']);});
 				
 				trackData += '<td>'+(offset+key+1)+'</td>';
-				trackData += '<td>'+track['name']+'</td>';
+				trackData += '<td>'+name+'</td>';
 				trackData += '<td>'+artistsNames.join(',')+'</td>';
-				trackData += '<td>'+track['album']['name']+" ("+track['album']['released']+')</td>';
+				trackData += '<td>'+albumName+" ("+albumReleaseDate+')</td>';
+				trackData += '<td><button class="spotify_search_choose_buttons btn btn-primary" name="'+spotifyUri+'">Choose</button></td>';
+				
+				
 				$('<tr>'+trackData+'</tr>').insertBefore($('#spotify_search_results').children().last());
 			});
-			var numberOfPages = Math.ceil(numResults/limit);
-			
-			var paginationHtml = '<div class="pagination"><ul>';
-			for (i=1;i<=numberOfPages;i++) {
-				if (i == pageNumber) {
-					paginationHtml += '<li class="active"><a class="spotify_search_pagination_buttons" name="'+i+'" href="#">'+i+'</a></li>'	
-				} else {
-					paginationHtml += '<li><a class="spotify_search_pagination_buttons" href="#">'+i+'</a></li>'
-				}
-				
-			}
-			paginationHtml += '</ul></div>';
-			$('#spotify_search_results_pagination').html(paginationHtml);
+			music.addPagination(pageNumber, numberOfResults, limit);
 			
 		});
 		return false;
+	},
+	addPagination: function(pageNumber, numberOfResults, limit) {
+		var numberOfPages = Math.ceil(numberOfResults/limit);
+		
+		var paginationHtml = '<div class="pagination"><ul>';
+		for (i=1;i<=numberOfPages;i++) {
+			if (i == pageNumber) {
+				paginationHtml += '<li class="active"><a class="spotify_search_pagination_buttons" name="'+i+'" href="#">'+i+'</a></li>'	
+			} else {
+				paginationHtml += '<li><a class="spotify_search_pagination_buttons" href="#">'+i+'</a></li>'
+			}
+			
+		}
+		paginationHtml += '</ul></div>';
+		$('#spotify_search_results_pagination').html(paginationHtml);
+	},
+	clearSearchResults: function() {
+		$('#spotify_search_results').html('<tr><td></td><td></td><td></td><td></td><td></td></tr>');
+		$('#spotify_search_results_pagination').html("");
+		return false;
+	},
+	populateAndSubmitSongthreadForm: function (spotifyUri) {
+		$('#id_spotify_uri').attr("value", spotifyUri);
+		$('#songthread_create_form').submit();
+		return false;
 	}
+	
 };
 
 
@@ -62,5 +84,7 @@ $(function() {
 	
 	$('#spotify_search_form').bind('submit', function() {return music.spotifySearch(1)});
 	$('.spotify_search_pagination_buttons').live('click', function(event) {event.preventDefault();return music.spotifySearch($(event.target).html())});
-	
+	$('.spotify_search_choose_buttons').live('click', function(event) {return music.populateAndSubmitSongthreadForm($(event.target).attr("name"))});
+	$('#spotify_search_form_search').bind('click', function() {return music.spotifySearch(1)});
+	$('#spotify_search_form_clear').bind('click', function() {return music.clearSearchResults()});
 });

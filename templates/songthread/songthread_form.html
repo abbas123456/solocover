@@ -7,7 +7,7 @@
 <p class="lead">Or paste a Spotify URI</p>
 <div class="row-fluid">
     <div>
-        <form method="post" action="." class="form-horizontal" >
+        <form id="songthread_create_form" method="post" action="." class="form-horizontal" >
             {% csrf_token %}
             {% if form.spotify_uri.errors %}
                 <div class="control-group error">
