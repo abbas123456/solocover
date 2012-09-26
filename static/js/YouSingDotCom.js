@@ -87,4 +87,17 @@ $(function() {
 	$('.spotify_search_choose_buttons').live('click', function(event) {return music.populateAndSubmitSongthreadForm($(event.target).attr("name"))});
 	$('#spotify_search_form_search').bind('click', function() {return music.spotifySearch(1)});
 	$('#spotify_search_form_clear').bind('click', function() {return music.clearSearchResults()});
+	
+	if( ! $('#songthread_canvas').tagcanvas({
+		textFont: null,
+	    textColour : '#ffffff',
+	    outlineThickness : 1,
+	    maxSpeed : 0.03,
+	    initial: [0.1,0.1],
+	    depth : 0.75,
+	    dragControl: true,
+	    shape: 'vcylinder'
+	    }, 'songthread_tags')) {
+	    $('#songthread_canvas_container').hide();
+	   }
 });
