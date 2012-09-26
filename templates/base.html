@@ -12,52 +12,63 @@
     </head>
 
     <body>
-        <div class="navbar navbar-static-top navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <ul class="nav">
-                    <li class="active"><a href="{% url songthread_list %}">Home</a></li>
-                    <li><a href="{% url songthread_list %}">About us</a></li>
-                    <li><a href="{% url songthread_list %}">Help</a></li>
-                </ul>
-                <form class="navbar-search pull-left">
-                    <input type="text" class="search-query" placeholder="Search">
-                </form>
-                <div class="dropdown btn-group pull-right">
-                    <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> User</a>
-                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><i class="icon-pencil"></i>Edit profile</a></li>
-                        <li class="divider"></li>
-                        <li>{% if user.is_authenticated %}<a href="{% url logout %}?next=/threads"><i class="icon-off"></i>Log out</a>{% else %}<a href="{% url login %}?next=/threads"><i class="icon-ok-circle"></i>Log in</a>{% endif %}</li>
-                    </ul>
-                </div>
-             </div>
-        </div>
-        <header class="banner" id="overview">
+        <div id="wrap">
             <div class="container">
-                <h1>Solo cover</h1>
-                <p class="lead">Take to the stage.</p>
-            </div>
-        </header>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span3">
-                    <h3>Genres</h3>
-                    <div class="tabbable tabs-left">
-                    <ul class="nav nav-tabs">
-                        <li><a href="{% url songthread_list %}">Hip Hop<i class="icon-chevron-right pull-right"></i></a></li>
-                        <li><a href="{% url songthread_list %}">Jazz<i class="icon-chevron-right pull-right"></i></a></li>
-                        <li><a href="{% url songthread_list %}">Dubstep<i class="icon-chevron-right pull-right"></i></a></li>
-                    </ul>
+                <div class="navbar navbar-static-top navbar-inverse navbar-fixed-top">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li class="active"><a href="{% url songthread_list %}">Home</a></li>
+                            <li><a href="{% url songthread_list %}">About us</a></li>
+                            <li><a href="{% url songthread_list %}">Help</a></li>
+                        </ul>
+                        <form class="navbar-search pull-left">
+                            <input type="text" class="search-query" placeholder="Search">
+                        </form>
+                        <div class="dropdown btn-group pull-right">
+                            <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> User</a>
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="icon-pencil"></i>Edit profile</a></li>
+                                <li class="divider"></li>
+                                <li>{% if user.is_authenticated %}<a href="{% url logout %}?next=/threads"><i class="icon-off"></i>Log out</a>{% else %}<a href="{% url login %}?next=/threads"><i class="icon-ok-circle"></i>Log in</a>{% endif %}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="span9" id="content">
-                    {% block primary %}{% endblock %}
+                <header id="overview">
+                    <div class="container">
+                        <h1 class="banner">Solo cover</h1>
+                        <p class="lead">Take to the stage.</p>
+                    </div>
+                </header>
+                <div id="main_body" class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <h3>Genres</h3>
+                            <div class="tabbable tabs-left">
+                            <ul class="nav nav-tabs">
+                                <li><a href="{% url songthread_list %}">Hip Hop<i class="icon-chevron-right pull-right"></i></a></li>
+                                <li><a href="{% url songthread_list %}">Jazz<i class="icon-chevron-right pull-right"></i></a></li>
+                                <li><a href="{% url songthread_list %}">Dubstep<i class="icon-chevron-right pull-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="span10" id="content">
+                            {% block primary %}{% endblock %}
+                        </div>
+                    </div>
                 </div>
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+                <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+                <script src="{{ STATIC_URL }}js/YouSingDotCom.js"></script>
+            </div>
+            <div id="wrap"></div>
         </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>Designed and built by <a href="http://github.com/abbas123456" >abbas123456</a></p>
         </div>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-        <script src="{{ STATIC_URL }}js/YouSingDotCom.js"></script>
+        </footer>
     </body>
 </html>

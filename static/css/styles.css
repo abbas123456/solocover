@@ -1,15 +1,47 @@
-.banner {
-    padding: 40px;
-    background-image: -moz-linear-gradient(center top , #0044CC, #0088CC);
-    color: white;
-}
-body {
+html, body {
     font-size: 16px;
     font-family: arial;
+    color: white;
+    background-image:url('../img/txture_@2X.png');
+    height: 100%;
+}
+.navbar {
+    margin-left: auto;
+    margin-right: auto; 
+    width: 1170px;
+}
+
+h1.banner {
+    font-size: 46px;
+}
+header {
+	margin-top:41px;
+    padding: 15px;
+    background-image: -moz-linear-gradient(center top , #0088CC, #0044CC);
+    color: white;
+}
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+#push,
+#footer {
+    height: 60px;
+}
+#main_body {
+	margin-left: auto;
+	margin-right: auto; 
+    backgrofund-color: #111111
 }
 i {
-    margin-right: 8px
+    margin-right: 8px;
 }
-h1 {
-    font-size: 46px;
+.form_div {
+	margin-top:62px;
+}
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: #454444;
 }

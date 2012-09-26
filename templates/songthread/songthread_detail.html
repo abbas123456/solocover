@@ -3,7 +3,7 @@
 {% block primary %}
 <div class="row-fluid">
     <div class="span4">
-        <h2>{{ object }}</h2>
+        <h2>Track name</h2>
         <h3>{{ object.track }}</h3>
         <iframe src="{{ spotify_embed_url }}{{ object.track.spotify_uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
     </div>
