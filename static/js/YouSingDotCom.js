@@ -95,8 +95,7 @@ $(function() {
 	    maxSpeed : 0.03,
 	    initial: [0.1,0.1],
 	    depth : 0.75,
-	    dragControl: true,
-	    shape: 'vcylinder'
+	    dragControl: true
 	    }, 'songthread_tags')) {
 	    $('#songthread_canvas_container').hide();
 	   }

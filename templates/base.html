@@ -43,19 +43,11 @@
                 </header>
                 <div id="main_body" class="container-fluid">
                     <div class="row-fluid">
-                        <div class="span2">
-                            <h3>Genres</h3>
-                            <div class="tabbable tabs-left">
-                            <ul class="nav nav-tabs">
-                                <li><a href="{% url songthread_list %}">Hip Hop<i class="icon-chevron-right pull-right"></i></a></li>
-                                <li><a href="{% url songthread_list %}">Jazz<i class="icon-chevron-right pull-right"></i></a></li>
-                                <li><a href="{% url songthread_list %}">Dubstep<i class="icon-chevron-right pull-right"></i></a></li>
-                            </ul>
-                            </div>
-                        </div>
-                        <div class="span10" id="content">
+                        {% block leftBar %}{% endblock %}
+                        <div class="span7" id="content">
                             {% block primary %}{% endblock %}
                         </div>
+                        {% block rightBar %}{% endblock %}
                     </div>
                 </div>
                 <!--[if lt IE 9]><script type="text/javascript" src="{{ STATIC_URL }}js/excanvas.js"></script><![endif]-->

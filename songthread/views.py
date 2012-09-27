@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.views.generic import DetailView,CreateView
+from django.views.generic import DetailView,CreateView, ListView
 from datetime import datetime
 
 from songthread.forms import SongForm
@@ -12,13 +12,23 @@ from songthread.models import Song, Songthread
 from songthread.services import SongthreadService
 
 from music.forms import TrackForm
+SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
+class SongthreadListView(ListView):
+    model=Songthread
+    
+    def get_context_data(self, **kwargs):
+        context = super(SongthreadListView, self).get_context_data(**kwargs)
+        context['spotify_embed_url'] = SPOTIFY_EMBED_URL
+        context['latest_songthreads'] = Songthread.objects.all().order_by('-created_date')[0:5]
+        return context
+    
 class SongthreadDetailView(DetailView):
     model=Songthread
     
     def get_context_data(self, **kwargs):
         context = super(SongthreadDetailView, self).get_context_data(**kwargs)
-        context['spotify_embed_url'] = 'https://embed.spotify.com/?uri='
+        context['spotify_embed_url'] = SPOTIFY_EMBED_URL
         songthread_id_kwarg =self.kwargs['pk']
         context['songs'] = Song.objects.filter(songthread_id=songthread_id_kwarg)
         return context

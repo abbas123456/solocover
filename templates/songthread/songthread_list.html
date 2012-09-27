@@ -1,12 +1,23 @@
 {% extends "base.html" %}
+{% block leftBar %}
+    <div class="span3">
+        <h3>Latest threads</h3>
+        {% for songthread in latest_songthreads %}
+            <a class="pull-right" href="{% url songthread_detail songthread.id %}"><i class="icon-search icon-white"></i></a>
+            <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
+        {% endfor %}
+        <a class="btn btn-primary pull-left" href="{% url songthread_create %}"><i class="icon-plus icon-white"></i>Create your own</a>
+   </div>
+{% endblock %}
+
 {% block primary %}
-<h2>Most popular threads</h2>
+<h3 align="center">Most popular threads</h3>
 {% if object_list|length == 0 %}
 <p>There are currently no threads</p>
 {% endif %}
 
 <div id="songthread_canvas_container">
- <canvas width="700" height="500" id="songthread_canvas">
+ <canvas width="647" height="585" id="songthread_canvas">
   <p>Anything in here will be replaced on browsers that support the canvas element</p>
  </canvas>
 </div>
@@ -17,6 +28,33 @@
 {% endfor %}
  </ul>
 </div>
-<a class="btn btn-primary pull-right" href="{% url songthread_create %}"><i class="icon-plus icon-white"></i>Create your own</a>
+{% endblock %}
 
+{% block rightBar %}
+    <div class="span2">
+        <h3 class="pull-right">Top users</h3>
+        <ul class="thumbnails">
+            <li class="span12">
+                <a href="#" class="thumbnail">
+                    <img src="http://www.placehold.it/154x116" alt="">
+                </a>
+            </li>
+            <li class="span12">
+                <a href="#" class="thumbnail">
+                    <img src="http://www.placehold.it/154x116" alt="">
+                </a>
+            </li>
+            <li class="span12">
+                <a href="#" class="thumbnail">
+                    <img src="http://www.placehold.it/154x116" alt="">
+                </a>
+            </li>
+            <li class="span12">
+                <a href="#" class="thumbnail">
+                    <img src="http://www.placehold.it/154x116" alt="">
+                </a>
+            </li>
+        </ul>
+        
+   </div>
 {% endblock %}
