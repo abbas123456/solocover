@@ -1,5 +1,4 @@
 import urllib2
-import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -10,7 +9,9 @@ from datetime import datetime
 
 from songthread.forms import SongForm
 from songthread.models import Song, Songthread
-from music.forms import TrackForm, SPOTIFY_LOOKUP_URL
+from songthread.services import SongthreadService
+
+from music.forms import TrackForm
 
 class SongthreadDetailView(DetailView):
     model=Songthread
@@ -37,7 +38,8 @@ class SongthreadCreateView(CreateView):
     def form_valid(self, form):
         track = form.save(commit=False)
         try:
-            self.populate_track_using_spotify_lookup(track)
+            songthread_service = SongthreadService()
+            songthread_service.populate_track_using_spotify_lookup(track)
         except urllib2.HTTPError:
             return HttpResponseRedirect(self.get_success_url())    
         track.save()
@@ -51,16 +53,6 @@ class SongthreadCreateView(CreateView):
     def get_success_url(self):
         return reverse('songthread_list')
     
-    def populate_track_using_spotify_lookup(self, track):
-        url = urllib2.urlopen('{0}{1}'.format(SPOTIFY_LOOKUP_URL, track.spotify_uri))
-        track_json = json.load(url)['track']
-        
-        track.album = '{0} ({1})'.format(track_json['album']['name'],track_json['album']['released'])
-        track.track_number = track_json['track-number']
-        track.length = track_json['length']
-        track.name = track_json['name']
-        track.artists = ','.join([artist['name'] for artist in track_json['artists']])
-
 class SongCreateView(CreateView):
     form_class = SongForm
     model = Song    

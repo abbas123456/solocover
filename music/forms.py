@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 from music.models import Track
 from django.core.exceptions import ValidationError
-import urllib2
+from songthread.services import SPOTIFY_LOOKUP_URL
 
-SPOTIFY_LOOKUP_URL = "http://ws.spotify.com/lookup/1/.json?uri="
+import urllib2
 
 class TrackForm(ModelForm):
     
