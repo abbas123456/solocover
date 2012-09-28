@@ -11,23 +11,25 @@
 {% endblock %}
 
 {% block primary %}
-<h3 align="center">Most popular threads</h3>
-{% if object_list|length == 0 %}
-<p>There are currently no threads</p>
-{% endif %}
+    <div class="span7" id="content">
+        <h3 align="center">Most popular threads</h3>
+        {% if object_list|length == 0 %}
+            <p>There are currently no threads</p>
+        {% endif %}
 
-<div id="songthread_canvas_container">
- <canvas width="647" height="585" id="songthread_canvas">
-  <p>Anything in here will be replaced on browsers that support the canvas element</p>
- </canvas>
-</div>
-<div id="songthread_tags">
- <ul>
-  {% for songthread in object_list %}
-    <li><a href="{% url songthread_detail songthread.id %}">{{ songthread }}</a></li>
-{% endfor %}
- </ul>
-</div>
+        <div id="songthread_canvas_container">
+            <canvas width="647" height="585" id="songthread_canvas">
+                <p>Anything in here will be replaced on browsers that support the canvas element</p>
+            </canvas>
+        </div>
+        <div id="songthread_tags">
+            <ul>
+                {% for songthread in object_list %}
+                    <li><a href="{% url songthread_detail songthread.id %}">{{ songthread }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
 {% block rightBar %}
@@ -55,6 +57,5 @@
                 </a>
             </li>
         </ul>
-        
    </div>
 {% endblock %}
