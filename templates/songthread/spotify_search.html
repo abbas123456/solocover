@@ -4,20 +4,28 @@
         <button id="spotify_search_form_search" class="btn btn-success">Search</button>
         <button id="spotify_search_form_clear" class="btn btn-danger">Clear results</button>
     </form> 
-    <br />
-    <div id="spotify_search_results_pagination"> </div>
-    <table class="table table-bordered table-condensed table-hover">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Artists</th>
-                <th>Album</th>
-                <th>Choose</th>
-            </tr>
-        </thead>
-        <tbody id="spotify_search_results" >
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
+    <br /><br />
+    <div class="scroll_headers">
+    <table id="headers_id" class="scroll_padded table table-bordered table-condensed table-hover">
+      <thead>
+        <tr height="18">
+            <th>Name</th>
+            <th>Artists</th>
+            <th>Album</th>
+            <th width="50"></th>
+        </tr>
+      </thead>
     </table>
+  </div>
+  <div id="scroll_body" class="scrolling">
+    <table id="table_id" class="scroll_padded table-condensed table-hover">
+      <tbody id="spotify_search_results">
+          <tr height="18">
+              <td></td><td></td><td></td><td></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="spotify_search_results_pagination"> </div>
+    
 </div>

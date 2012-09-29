@@ -18,14 +18,13 @@ var music = {
 				var artistsNames = new Array();
 				$(track['artists']).each(function(index, value){artistsNames[index] = (value['name']);});
 				
-				trackData += '<td>'+(offset+key+1)+'</td>';
 				trackData += '<td>'+name+'</td>';
 				trackData += '<td>'+artistsNames.join(',')+'</td>';
 				trackData += '<td>'+albumName+" ("+albumReleaseDate+')</td>';
-				trackData += '<td><button class="spotify_search_choose_buttons btn btn-primary" name="'+spotifyUri+'">Choose</button></td>';
+				trackData += '<td width="50"><button class="spotify_search_choose_buttons btn btn-primary" name="'+spotifyUri+'"><i class="icon-ok icon-white" /></button></td>';
 				
 				
-				$('<tr>'+trackData+'</tr>').insertBefore($('#spotify_search_results').children().last());
+				$('<tr height="18">'+trackData+'</tr>').insertBefore($('#spotify_search_results').children().last());
 			});
 			music.addPagination(pageNumber, numberOfResults, limit);
 			
@@ -48,7 +47,7 @@ var music = {
 		$('#spotify_search_results_pagination').html(paginationHtml);
 	},
 	clearSearchResults: function() {
-		$('#spotify_search_results').html('<tr><td></td><td></td><td></td><td></td><td></td></tr>');
+		$('#spotify_search_results').html('<tr height="18"><td></td><td></td><td></td><td></td></tr>');
 		$('#spotify_search_results_pagination').html("");
 		return false;
 	},

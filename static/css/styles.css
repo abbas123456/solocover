@@ -45,3 +45,47 @@ i {
 .table-hover tbody tr:hover th {
   background-color: #454444;
 }
+
+
+.scrolling {
+  overflow-y: scroll;
+}
+
+.scroll_headers {
+  padding-right: 16px;
+}
+
+.scroll_padded {
+  width: 99%;
+  margin-left: 5px;
+  table-layout: fixed;
+}
+
+.scroll_padded th {
+  padding: 0 0 0 5px;
+  text-align: left;
+}
+
+.scroll_padded td {
+  padding: 0 0 0 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.scroll_padded th.amount {
+  padding: 0 5px 0 0;
+  text-align: right;
+}
+
+.scroll_padded td.amount {
+  padding: 0 5px 0 0;
+  text-align: right;
+}
+
+#scroll_body {
+  height: 300px;
+}
+
+
