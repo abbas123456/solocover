@@ -88,3 +88,6 @@ class SongCreateView(CreateView):
     def get_success_url(self, song):
         return reverse('songthread_detail',
                            kwargs={'pk': song.songthread.id})
+    def get_failure_url(self, songthread_id):
+        return reverse('songthread_detail',
+                           kwargs={'pk': songthread_id})
