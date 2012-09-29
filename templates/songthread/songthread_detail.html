@@ -6,7 +6,6 @@
         <h2>Track name</h2>
         <h3>{{ object.track }}</h3>
         <iframe src="{{ spotify_embed_url }}{{ object.track.spotify_uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-        <a class="btn btn-primary" href="{% url song_create songthread.id %}"><i class="icon-ok icon-white"></i>Join this thread</a>
     </div>
     <div class="span8">
     <h2>All entries</h2>
@@ -32,6 +31,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        <a class="btn btn-primary" href="{% url song_create songthread.id %}"><i class="icon-ok icon-white"></i>Submit an entry</a>
     </div>
 </div>
 {% endblock %}

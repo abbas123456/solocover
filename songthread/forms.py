@@ -33,8 +33,8 @@ class SongForm(ModelForm):
             mp3_file = MP3(file_path)
             number_of_seconds = ceil(mp3_file.info.length)
              
-        if number_of_seconds > 30:
-            raise ValidationError("Your song needs to be 30 seconds or less")
+        if number_of_seconds > 30 or number_of_seconds < 10:
+            raise ValidationError("Your song needs to be between 10 and 30 seconds")
         else:
             return file_object
     class Meta:

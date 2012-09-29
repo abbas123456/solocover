@@ -1,31 +1,49 @@
 {% extends "base.html" %}
 {% block primary %}
-<div class="form_div">
-    <form method="post" action="." class="form-horizontal" enctype="multipart/form-data">
-        {% csrf_token %}
-            {% if form.file.errors %}
-                <div class="control-group error">
-                    <div class="controls">
+<div class="span6">
+    <h2>Rules</h2>
+    <p class="lead">Please read these rules before uploading your song.</p>
+    <p class="text-success">You must upload a sound file of you singing a cover of this song.</p>
+    <p class="text-success">Your song must be between 10 seconds and 30 seconds long.</p>
+    <p class="text-success">Your song must be in mp3 or wav format.</p>
+    <p class="text-error">You must not change the words of the song.</p>
+    <p class="text-error">Your must not upload a recording of the original song.</p>
+    <p class="text-error">Your must not upload the original song or part of it.</p>
+    <p class="text-error">Any files uploaded that breach copyright law will be removed and your account will be blocked.</p>
+    <h2>Info</h2>
+    <p class="lead">Please read the following before uploading your sing.</p>
+    <p class="text-info">By uploading your song you are agreeing to the terms of the conditions of the site.</p>
+    <p class="text-info">Your song will be open to the world, anybody browsing the site will be able to listen to it.</p>
+    
+</div>
+<div class="span2"></div>
+<div class="span4">
+    <div>
+        <h2>File upload</h2>
+        <p class="lead">Please upload your file below</p>
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+                {% if form.file.errors %}
+                    <div class="control-group error">
+                            <div class="controls">
+                            {{ form.file }}
+                            <span class="help-inline">{{ form.file.errors }}</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="control-group">
+                        <div class="controls">
                         {{ form.file }}
-                        <span class="help-inline">{{ form.file.errors }}</span>
+                        </div>
                     </div>
-                </div>
-            {% else %}
-                <div class="control-group">
-                    <div class="controls">
-                    {{ form.file }}
-                    </div>
-                </div>
             {% endif %}
-            <div class="control-group">
-                <div class="controls">
-                    <input type="submit" class="btn btn-primary" value="Save"/>
-                    <a class="btn btn-inverse" href="{% url songthread_detail songthread_id %}">Cancel</a>
-                </div>
-            </div>
-    </form>
+                    <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" class="btn btn-primary" value="Save"/>
+                        <a class="btn btn-inverse" href="{% url songthread_detail songthread_id %}">Cancel</a>
+                    </div>
+                </div>  
+        </form>
+</div>
 </div>
 {% endblock %}
-
-
-
