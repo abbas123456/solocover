@@ -1,4 +1,5 @@
 import urllib2
+import re 
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -12,6 +13,7 @@ from songthread.models import Song, Songthread
 from songthread.services import SongthreadService
 
 from music.forms import TrackForm
+from django.db.transaction import commit
 SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
 class SongthreadListView(ListView):
@@ -82,6 +84,7 @@ class SongCreateView(CreateView):
         form.instance.created_date = datetime.now()
         songthread_id =self.kwargs['songthread_id']
         form.instance.songthread = Songthread.objects.get(id=songthread_id) 
+        form.instance.file_content_type = re.search('\/(.*)$', form.instance.file.file.content_type).group()[1:]
         song = form.save()
         return HttpResponseRedirect(self.get_success_url(song))
     

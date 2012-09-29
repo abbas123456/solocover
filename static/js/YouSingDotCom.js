@@ -98,4 +98,8 @@ $(function() {
 	    }, 'songthread_tags')) {
 	    $('#songthread_canvas_container').hide();
 	   }
+	
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
 });

@@ -1,13 +1,9 @@
-import wave
-import contextlib
 from mutagen.mp3 import MP3
 
 from math import ceil
 from django.forms import ModelForm
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from songthread.models import Song, Songthread
-from mutagen.mp3 import MP3
 
 class SongthreadForm(ModelForm):
 
@@ -17,18 +13,13 @@ class SongthreadForm(ModelForm):
         
 class SongForm(ModelForm):
     
-    accepted_file_types = ['audio/mpeg', 'audio/x-wav']
+    accepted_file_types = ['audio/mpeg']
     def clean_file(self):
         file_object = self.cleaned_data['file']
         file_path = file_object.temporary_file_path()
         if file_object.content_type not in self.accepted_file_types:
-            raise ValidationError("You can only upload mp3 and wav files")
+            raise ValidationError("You can only upload mp3 files")
         
-        if file_object.content_type =='audio/x-wav':
-            with contextlib.closing(wave.open(file_path, 'r')) as f:
-                number_of_frames = f.getnframes()
-                frame_rate = f.getframerate()
-                number_of_seconds = ceil(number_of_frames/float(frame_rate))
         if file_object.content_type =='audio/mpeg':            
             mp3_file = MP3(file_path)
             number_of_seconds = ceil(mp3_file.info.length)
@@ -39,5 +30,5 @@ class SongForm(ModelForm):
             return file_object
     class Meta:
         model = Song
-        exclude = ('user', 'songthread','created_date')
+        exclude = ('user', 'songthread','created_date', 'file_content_type')
         
