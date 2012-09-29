@@ -1,8 +1,9 @@
 from django.db import models
+from songthread.models import Song
 
 class Vote(models.Model):
-    score = models.IntegerField()
-    comment = models.CharField(max_length=64)
+    like = models.BooleanField()
+    song = models.ForeignKey(Song)
     created_date = models.DateTimeField()
     
     def __unicode__(self):
