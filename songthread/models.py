@@ -14,6 +14,7 @@ class Songthread(models.Model):
 class Song(models.Model):
     songthread = models.ForeignKey(Songthread)
     user = models.ForeignKey(User)
+    file = models.FileField(upload_to = 'songs/%s' % User)
     created_date = models.DateTimeField()
     
     def __unicode__(self):

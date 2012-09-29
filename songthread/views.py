@@ -66,11 +66,16 @@ class SongthreadCreateView(CreateView):
 class SongCreateView(CreateView):
     form_class = SongForm
     model = Song    
-    context_object_name = 'song'
     
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SongCreateView, self).dispatch(*args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super(SongCreateView, self).get_context_data(**kwargs)
+        songthread_id =self.kwargs['songthread_id']
+        context['songthread_id'] = songthread_id
+        return context
     
     def form_valid(self, form):
         form.instance.user = self.request.user

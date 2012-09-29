@@ -3,11 +3,26 @@
 <div class="form_div">
     <form method="post" action="." class="form-horizontal" >
         {% csrf_token %}
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn btn-info">Save</button>
+            {% if form.file.errors %}
+                <div class="control-group error">
+                    <div class="controls">
+                        {{ form.file }}
+                        <span class="help-inline">{{ form.file.errors }}</span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="control-group">
+                    <div class="controls">
+                    {{ form.file }}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" class="btn btn-primary" value="Save"/>
+                    <a class="btn btn-inverse" href="{% url songthread_detail songthread_id %}">Cancel</a>
+                </div>
             </div>
-        </div>
     </form>
 </div>
 {% endblock %}
