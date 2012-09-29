@@ -9,7 +9,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^threads/$', SongthreadListView.as_view(), name='songthread_list'),
+    url(r'^$', SongthreadListView.as_view(), name='songthread_list'),
     url(r'^thread/add/$', SongthreadCreateView.as_view(), name='songthread_create'),
     url(r'^thread/(?P<pk>\d+)/$', SongthreadDetailView.as_view(), name='songthread_detail'),
     url(r'^song/add/(?P<songthread_id>\d+)/$', SongCreateView.as_view(), name='song_create'),
