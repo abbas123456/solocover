@@ -14,6 +14,7 @@ from songthread.services import SongthreadService
 
 from music.forms import TrackForm
 from vote.forms import VoteForm
+from vote.services import VoteService
 
 SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
@@ -34,8 +35,12 @@ class SongthreadDetailView(DetailView):
         context['spotify_embed_url'] = SPOTIFY_EMBED_URL
         songthread_id_kwarg =self.kwargs['pk']
         songs = Song.objects.filter(songthread_id=songthread_id_kwarg)
+        vote_service = VoteService()
         for song in songs:
             song.form = VoteForm
+            vote = vote_service.get_users_vote_for_song(song, self.request.user)
+            if vote is not None:
+                song.vote = vote
         context['songs'] = songs
         return context
 

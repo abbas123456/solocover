@@ -8,6 +8,7 @@ from vote.forms import VoteForm
 def vote(request, song_id, like):
     form = VoteForm(data=request.POST)
     song = Song.objects.get(id=song_id)
+    form.instance.user = request.user
     form.instance.song = song 
     if form.is_valid():
         if like == '1':
@@ -15,7 +16,6 @@ def vote(request, song_id, like):
         else:
             form.instance.like = False
         form.instance.created_date = datetime.now()
-        form.instance.user = request.user
         vote = form.save()
     return HttpResponseRedirect(get_success_url(song))
     

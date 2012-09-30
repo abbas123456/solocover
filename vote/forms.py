@@ -1,6 +1,7 @@
 from vote.models import Vote
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
+from vote.services import VoteService
 
 class VoteForm(ModelForm):
     
@@ -9,10 +10,8 @@ class VoteForm(ModelForm):
         exclude = ('user', 'created_date', 'like', 'song')
         
     def clean(self):
-        try:
-            Vote.objects.get(song_id=self.instance.song.id)
+        vote_service = VoteService()
+        if vote_service.has_user_voted_for_song(self.instance.song, self.instance.user):
             raise ValidationError("Vote already exists")
-        except Vote.DoesNotExist:
+        else:
             return self
-        except Vote.MultipleObjectsReturned:
-            raise Exception("Multiple votes exist")
