@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 from YouSingDotCom.settings import DEBUG
 from songthread.views import SongthreadListView, SongthreadDetailView, SongthreadCreateView, SongCreateView
+from django.contrib.auth.decorators import login_required
+import vote.views as vote_views
 
 admin.autodiscover()
 
@@ -14,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^thread/add/$', SongthreadCreateView.as_view(), name='songthread_create'),
     url(r'^thread/(?P<pk>\d+)/$', SongthreadDetailView.as_view(), name='songthread_detail'),
     url(r'^song/add/(?P<songthread_id>\d+)/$', SongCreateView.as_view(), name='song_create'),
-    url(r'^vote/(?P<song_id>\d+)/(?P<like>\d+)/$', 'vote.views.vote', name='vote_create'),
+    url(r'^vote/(?P<song_id>\d+)/(?P<like>\d+)/$', login_required(vote_views.vote), name='vote_create'),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),

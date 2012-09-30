@@ -13,6 +13,7 @@ def vote(request, song_id, like):
         vote.like = False
         
     vote.created_date = datetime.now()
+    vote.user = request.user
     vote.save()
     return HttpResponseRedirect(get_success_url(vote))
     
