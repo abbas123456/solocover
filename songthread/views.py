@@ -13,6 +13,7 @@ from songthread.models import Song, Songthread
 from songthread.services import SongthreadService
 
 from music.forms import TrackForm
+from vote.forms import VoteForm
 
 SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
@@ -32,7 +33,10 @@ class SongthreadDetailView(DetailView):
         context = super(SongthreadDetailView, self).get_context_data(**kwargs)
         context['spotify_embed_url'] = SPOTIFY_EMBED_URL
         songthread_id_kwarg =self.kwargs['pk']
-        context['songs'] = Song.objects.filter(songthread_id=songthread_id_kwarg)
+        songs = Song.objects.filter(songthread_id=songthread_id_kwarg)
+        for song in songs:
+            song.form = VoteForm
+        context['songs'] = songs
         return context
 
 class SongthreadCreateView(CreateView):
