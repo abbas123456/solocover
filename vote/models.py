@@ -7,4 +7,4 @@ class Vote(models.Model):
     created_date = models.DateTimeField()
     
     def __unicode__(self):
-        return self.comment
+        return self.song.songthread.track.name

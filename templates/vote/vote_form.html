@@ -1,0 +1,12 @@
+<form method="post" action="{% url vote_create song_id like %}">
+    {% csrf_token %}
+    <div class="control-group">
+        <div class="controls">
+            {% ifequal like 0 %}
+                <button type="submit" class="btn btn-danger" value=""/><i class="icon-thumbs-down"></i></button>
+            {% else %}
+                <button type="submit" class="btn btn-success" value=""/><i class="icon-thumbs-up"></i></button>
+            {% endifequal %}
+        </div>
+        </div>  
+</form>

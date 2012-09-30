@@ -13,7 +13,7 @@ from songthread.models import Song, Songthread
 from songthread.services import SongthreadService
 
 from music.forms import TrackForm
-from django.db.transaction import commit
+
 SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
 class SongthreadListView(ListView):
