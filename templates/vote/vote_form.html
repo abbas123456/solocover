@@ -1,29 +1,14 @@
 {% if vote %}
     <td>
-        {% if vote.like %}
-            <button disabled="disabled" class="btn btn-success" value=""/><i class="icon-thumbs-up"></i></button>
-        {% else %}
-            <button disabled="disabled" class="btn btn-danger" value=""/><i class="icon-thumbs-down"></i></button>
-        {% endif %}
+        <button disabled="disabled" class="btn btn-success" value=""/><i class="icon-thumbs-up"></i></button>
     </td>
-    <td></td>
 {% else %}
     <td>
-        <form method="post" action="{% url vote_create song_id 1 %}">
+        <form method="post" action="{% url vote_create song_id %}">
             {% csrf_token %}
             <div class="control-group">
                 <div class="controls">
                     <button type="submit" class="btn btn-success" value=""/><i class="icon-thumbs-up"></i></button>
-                </div>
-            </div>  
-        </form>
-    </td>
-    <td>
-        <form method="post" action="{% url vote_create song_id 0 %}">
-            {% csrf_token %}
-            <div class="control-group">
-                <div class="controls">
-                    <button type="submit" class="btn btn-danger" value=""/><i class="icon-thumbs-down"></i></button>
                 </div>
             </div>  
         </form>

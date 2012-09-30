@@ -5,17 +5,13 @@ from songthread.models import Song
 from django.core.urlresolvers import reverse
 from vote.forms import VoteForm
 
-def vote(request, song_id, like):
+def vote(request, song_id):
     form = VoteForm(data=request.POST)
     song = Song.objects.get(id=song_id)
-    form.instance.user = request.user
     form.instance.song = song 
+    form.instance.user = request.user
+    form.instance.created_date = datetime.now()
     if form.is_valid():
-        if like == '1':
-            form.instance.like = True
-        else:
-            form.instance.like = False
-        form.instance.created_date = datetime.now()
         vote = form.save()
     return HttpResponseRedirect(get_success_url(song))
     

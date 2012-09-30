@@ -21,10 +21,10 @@
             <tbody>
                 {% for song in songs %}
                     <tr>
-                        <td>{{ song.id }}</td>
+                        <td>{{ song.number_of_votes }}</td>
                         <td>{{ song.user }}</td>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
-                        {% include "vote/vote_form.html" with form=song.form song_id=song.id vote=song.vote %}
+                        {% include "vote/vote_form.html" with song_id=song.id vote=song.vote %}
                     </tr>
                 {% endfor %}
             </tbody>

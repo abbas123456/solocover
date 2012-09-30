@@ -7,7 +7,7 @@ class VoteForm(ModelForm):
     
     class Meta:
         model = Vote
-        exclude = ('user', 'created_date', 'like', 'song')
+        exclude = ('song', 'user', 'created_date')
         
     def clean(self):
         vote_service = VoteService()

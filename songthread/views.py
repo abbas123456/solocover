@@ -1,17 +1,16 @@
 import urllib2
 import re 
+from datetime import datetime
 
+from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView,CreateView, ListView
-from datetime import datetime
-
 from songthread.forms import SongForm
 from songthread.models import Song, Songthread
 from songthread.services import SongthreadService
-
 from music.forms import TrackForm
 from vote.forms import VoteForm
 from vote.services import VoteService
@@ -34,10 +33,11 @@ class SongthreadDetailView(DetailView):
         context = super(SongthreadDetailView, self).get_context_data(**kwargs)
         context['spotify_embed_url'] = SPOTIFY_EMBED_URL
         songthread_id_kwarg =self.kwargs['pk']
-        songs = Song.objects.filter(songthread_id=songthread_id_kwarg)
+        songs = Song.objects.filter(songthread_id=songthread_id_kwarg)\
+                            .annotate(number_of_votes=Count('vote'))\
+                            .order_by('-number_of_votes')
         vote_service = VoteService()
         for song in songs:
-            song.form = VoteForm
             vote = vote_service.get_users_vote_for_song(song, self.request.user)
             if vote is not None:
                 song.vote = vote
