@@ -24,7 +24,7 @@
                         <td>{{ song.number_of_votes }}</td>
                         <td>{{ song.user }}</td>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
-                        {% include "vote/vote_form.html" with song_id=song.id vote=song.vote %}
+                        <td>{% include "vote/vote_form.html" with song_id=song.id vote=song.vote %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
