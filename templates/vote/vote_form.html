@@ -1,7 +1,7 @@
 {% if vote %}
     <button disabled="disabled" class="btn" value=""/><i class="icon-thumbs-up"></i></button>
 {% else %}
-    <form method="post" action="{% url vote_create song_id %}">
+    <form method="post" action="{% url vote_create song.id %}">
         {% csrf_token %}
         <div class="control-group">
             <div class="controls">

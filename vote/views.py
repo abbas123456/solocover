@@ -4,17 +4,44 @@ from django.http import HttpResponseRedirect
 from songthread.models import Song
 from django.core.urlresolvers import reverse
 from vote.forms import VoteForm
+from django.views.generic import CreateView
+from vote.services import VoteService
 
-def vote(request, song_id):
-    form = VoteForm(data=request.POST)
-    song = Song.objects.get(id=song_id)
-    form.instance.song = song 
-    form.instance.user = request.user
-    form.instance.created_date = datetime.now()
-    if form.is_valid():
-        vote = form.save()
-    return HttpResponseRedirect(get_success_url(song))
+class VoteCreateView(CreateView):
+    form_class=VoteForm
+    model=Vote
     
-def get_success_url(song):
-    return reverse('songthread_detail',
-                       kwargs={'pk': song.songthread.id})
+    def get_initial(self):
+        initial = super(VoteCreateView, self).get_initial()
+        initial['song'] = Song.objects.get(id=self.kwargs['song_id'])
+        initial['user'] = self.request.user
+        return initial
+
+    def get(self, request, *args, **kwargs):
+        form = VoteForm(data=request.GET,initial=self.get_initial())
+        if form.is_valid():
+            vote = self.process_form(form)
+            return HttpResponseRedirect(self.get_success_url(vote))
+        else:
+            return HttpResponseRedirect(self.get_failure_url())    
+    
+    def form_valid(self, form):
+        vote = self.process_form(form)
+        return HttpResponseRedirect(self.get_success_url(vote))
+        
+    def form_invalid(self, form):
+        return HttpResponseRedirect(self.get_failure_url())
+    
+    def process_form(self, form):
+        form.instance.user = form.user
+        form.instance.created_date = datetime.now()
+        form.instance.song = form.song
+        vote = form.save()
+        return vote
+    
+    def get_success_url(self, vote):
+        return reverse('songthread_detail',
+                        kwargs={'pk': vote.song.songthread.id})
+        
+    def get_failure_url(self):
+        return reverse('songthread_list')

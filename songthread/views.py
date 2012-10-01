@@ -38,9 +38,7 @@ class SongthreadDetailView(DetailView):
                             .order_by('-number_of_votes')
         vote_service = VoteService()
         for song in songs:
-            vote = vote_service.get_users_vote_for_song(song, self.request.user)
-            if vote is not None:
-                song.vote = vote
+            song.vote = vote_service.get_users_vote_for_song(song, self.request.user)
         context['songs'] = songs
         return context
 
