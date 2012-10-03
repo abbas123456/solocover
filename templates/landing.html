@@ -1,0 +1,76 @@
+{% load i18n %}
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>Solo cover</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" />
+    </head>
+
+    <body class="landing">
+        <div id="wrap">
+        <div class="container landing_box">
+            <div class="row">
+                <div class="span1"></div>
+                <div class="span6">
+                    <br />
+                    <h1>Solocover</h1>
+                    <h3>Take to the stage</h3><br />
+                    <p class="lead">Join a community mad about music</p>
+                    <p class="lead">Browse and listen to songs</p>
+                    <p class="lead">Listen and vote for cover versions</p>
+                    <p class="lead">Upload your own cover versions</p>
+                    <a class="pull-right btn btn-primary" href="{% url songthread_list %}">Explore Solocover</a>
+                </div>
+                <div class="span4 landing_box_right">
+                <br />
+                    <h2 align="center">Register now</h2>
+                    <form class="landing_box_form form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="inputUsername">Username</label>
+                            <div class="controls">
+                                <input type="text" id="inputUsername" placeholder="Username">
+                            </div>
+                        </div>
+					    <div class="control-group">
+					        <label class="control-label" for="inputEmail">Email</label>
+                            <div class="controls">
+					            <input type="text" id="inputEmail" placeholder="Email">
+					        </div>
+					   </div>
+					   <div class="control-group">
+					       <label class="control-label" for="inputPassword">Password</label>
+					       <div class="controls">
+					           <input type="password" id="inputPassword" placeholder="Password">
+					       </div>
+					   </div>
+					   <div class="control-group">
+                           <label class="control-label" for="inputPasswordConfirmation">Confirm password</label>
+                           <div class="controls">
+                               <input type="password" id="inputPasswordConfirmation" placeholder="Password">
+                           </div>
+                      </div>
+                      <br /><br />
+					  <div class="control-group">
+					      <div class="controls">
+					          <button type="submit" class="pull-right btn btn-primary">Register</button>
+					      </div>
+					  </div>
+					</form>
+                </div>
+            </div>
+        </div>
+            <div id="wrap"></div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>Designed and built by <a href="http://github.com/abbas123456" >abbas123456</a></p>
+        </div>
+        </footer>
+    </body>
+</html>

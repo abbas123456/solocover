@@ -2,9 +2,37 @@ html, body {
     font-size: 16px;
     font-family: arial;
     color: white;
-    background-image:url('../img/dark_wall.png');
+    background-image:url(../img/dark_wall.png);
     height: 100%;
 }
+.landing {
+    background: url(../img/concert.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/concert.jpg', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/concert.jpg', sizingMethod='scale')";
+    zoom:1;
+}
+.landing_box {
+	height:400px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 30%;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.landing_box_right {
+	border-left: 1px solid #eee;
+}
+.landing_box_form {
+    margin-top:40px;
+}
+
+
 .navbar {
     margin-left: auto;
     margin-right: auto; 
@@ -55,11 +83,6 @@ h1.banner {
 #push,
 #footer {
     height: 60px;
-}
-#main_body {
-	margin-left: auto;
-	margin-right: auto; 
-    backgrofund-color: #111111
 }
 i {
     margin-right: 8px;

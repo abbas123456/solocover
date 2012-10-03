@@ -7,12 +7,14 @@ from YouSingDotCom.settings import DEBUG
 from songthread.views import SongthreadListView, SongthreadDetailView, SongthreadCreateView, SongCreateView
 from django.contrib.auth.decorators import login_required
 from vote.views import VoteCreateView
+from YouSingDotCom.views import LandingPageView
 
 admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^$', SongthreadListView.as_view(), name='songthread_list'),
+    url(r'^$', LandingPageView.as_view(), name='landing_page'),
+    url(r'^threads/$', SongthreadListView.as_view(), name='songthread_list'),
     url(r'^thread/add/$', SongthreadCreateView.as_view(), name='songthread_create'),
     url(r'^thread/(?P<pk>\d+)/$', SongthreadDetailView.as_view(), name='songthread_detail'),
     url(r'^song/add/(?P<songthread_id>\d+)/$', SongCreateView.as_view(), name='song_create'),
