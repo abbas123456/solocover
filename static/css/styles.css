@@ -139,4 +139,6 @@ i {
   height: 300px;
 }
 
-
+textarea {
+    resize: none;
+}

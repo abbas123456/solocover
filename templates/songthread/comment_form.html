@@ -1,0 +1,14 @@
+<form action="{% url comment_create songthread_id %}" method="post">
+    {% csrf_token %}
+    <div class="control-group{% if messages %} error{% for message in messages %}{% endfor %}{% endif %}">
+        <div class="controls">
+            <textarea id="input_content" name="content" rows="3" placeholder="Enter your comment here"></textarea>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Post comment</button>
+        </div>
+        
+    </div>
+</form>

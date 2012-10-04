@@ -8,12 +8,13 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView,CreateView, ListView
-from songthread.forms import SongForm
-from songthread.models import Song, Songthread
+from songthread.forms import SongForm, CommentForm
+from songthread.models import Song, Songthread, Comment
 from songthread.services import SongthreadService
 from music.forms import TrackForm
-from vote.forms import VoteForm
 from vote.services import VoteService
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
@@ -39,7 +40,10 @@ class SongthreadDetailView(DetailView):
         vote_service = VoteService()
         for song in songs:
             song.vote = vote_service.get_users_vote_for_song(song, self.request.user)
+        comments = Comment.objects.filter(songthread_id=songthread_id_kwarg)\
+                                  .order_by('-created_date')
         context['songs'] = songs
+        context['comments'] = comments                          
         return context
 
 class SongthreadCreateView(CreateView):
@@ -101,3 +105,40 @@ class SongCreateView(CreateView):
     def get_failure_url(self, songthread_id):
         return reverse('songthread_detail',
                            kwargs={'pk': songthread_id})
+        
+class CommentCreateView(CreateView):
+    form_class = CommentForm
+    model = Comment
+    
+    def get_context_data(self, **kwargs):
+        context = super(CommentCreateView, self).get_context_data(**kwargs)
+        songthread_id =self.kwargs['songthread_id']
+        context['songthread_id'] = songthread_id
+        return context
+    
+    def form_invalid(self, form):
+        songthread_id =self.kwargs['songthread_id']
+        if 'content' in form._errors:
+            messages.add_message(self.request, messages.INFO, form._errors['content'])
+        return HttpResponseRedirect(self.get_failure_url(songthread_id))
+
+    def form_valid(self, form):
+        if not self.request.user.is_authenticated():
+            user = User.objects.get(username='Anonymous')
+        else:
+            user = self.request.user
+        form.instance.user = user
+        form.instance.created_date = datetime.now()
+        songthread_id =self.kwargs['songthread_id']
+        form.instance.songthread = Songthread.objects.get(id=songthread_id)
+        comment = form.save()
+        return HttpResponseRedirect(self.get_success_url(comment))
+    
+    def get_success_url(self, comment):
+        return reverse('songthread_detail',
+                           kwargs={'pk': comment.songthread.id}) 
+    
+    def get_failure_url(self, songthread_id):
+        return reverse('songthread_detail',
+                           kwargs={'pk': songthread_id}) 
+    
