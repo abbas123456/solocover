@@ -20,6 +20,14 @@ class Song(models.Model):
     
     def __unicode__(self):
         return self.user
+
+class Comment(models.Model):
+    songthread = models.ForeignKey(Songthread)
+    user = models.ForeignKey(User)
+    content = models.TextField()
+    created_date = models.DateTimeField()
+        
+    
         
 
 
