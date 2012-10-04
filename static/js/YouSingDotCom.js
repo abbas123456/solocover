@@ -88,7 +88,7 @@ $(function() {
 	$('#spotify_search_form_clear').bind('click', function() {return music.clearSearchResults()});
 	
 	if( ! $('#songthread_canvas').tagcanvas({
-		textFont: null,
+		textFont: "Arial",
 	    textColour : '#ffffff',
 	    outlineThickness : 1,
 	    maxSpeed : 0.03,

@@ -1,6 +1,8 @@
+@font-face { font-family: Nikodecs; src: url('../fonts/RegencieLight.ttf'); } 
+
 html, body {
     font-size: 16px;
-    font-family: arial;
+    font-family: Nikodecs;
     color: white;
     background-image:url(../img/dark_wall.png);
     height: 100%;
