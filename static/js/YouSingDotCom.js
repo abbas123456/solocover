@@ -8,6 +8,7 @@ var music = {
 			var offset = info['offset'];
 			var limit = info['limit'];
 			var tracks = data['tracks'];
+			var html="";
 			$.each(tracks, function(key, track) {
 				var trackData = "";
 				var name = track['name'];
@@ -24,8 +25,9 @@ var music = {
 				trackData += '<td width="50"><button class="spotify_search_choose_buttons btn btn-primary" name="'+spotifyUri+'"><i class="icon-ok icon-white" /></button></td>';
 				
 				
-				$('<tr height="18">'+trackData+'</tr>').insertBefore($('#spotify_search_results').children().last());
+				html += '<tr height="18">'+trackData+'</tr>';
 			});
+			$('#spotify_search_results').html(html);
 			music.addPagination(pageNumber, numberOfResults, limit);
 			
 		});
@@ -47,8 +49,8 @@ var music = {
 		$('#spotify_search_results_pagination').html(paginationHtml);
 	},
 	clearSearchResults: function() {
-		$('#spotify_search_results').html('<tr height="18"><td></td><td></td><td></td><td></td></tr>');
-		$('#spotify_search_results_pagination').html("");
+		$('#spotify_search_results').html("");
+		$('#spotify_search_results_pagination').html('<div class="pagination"><ul></ul></div>');
 		return false;
 	},
 	populateAndSubmitSongthreadForm: function (spotifyUri) {
@@ -89,7 +91,7 @@ $(function() {
 	
 	if( ! $('#songthread_canvas').tagcanvas({
 		textFont: "Arial",
-	    textColour : '#ffffff',
+	    textColour : 'black',
 	    outlineThickness : 1,
 	    maxSpeed : 0.03,
 	    initial: [0.1,0.1],

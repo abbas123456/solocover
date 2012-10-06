@@ -1,16 +1,13 @@
 {% extends "base.html" %}
-{% block leftBar %}
+{% block primary %}
     <div class="span3">
         <h3>Latest threads</h3>
         {% for songthread in latest_songthreads %}
-            <a class="pull-right" href="{% url songthread_detail songthread.id %}"><i class="icon-search icon-white"></i></a>
+            <a class="pull-right" href="{% url songthread_detail songthread.id %}"><i class="icon-search"></i></a>
             <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
         {% endfor %}
-        <a class="btn btn-primary pull-left" href="{% url songthread_create %}"><i class="icon-plus icon-white"></i>Create your own</a>
+        <p><a class="btn btn-primary pull-left" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Create your own</a></p>
    </div>
-{% endblock %}
-
-{% block primary %}
     <div class="span7" id="content">
         <h3 align="center">Most popular threads</h3>
         {% if object_list|length == 0 %}
@@ -30,10 +27,7 @@
             </ul>
         </div>
     </div>
-{% endblock %}
-
-{% block rightBar %}
-    <div class="span2">
+    <div id="top_users" class="span2">
         <h3 class="pull-right">Top users</h3>
         <ul class="thumbnails">
             <li class="span12">

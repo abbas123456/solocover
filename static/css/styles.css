@@ -1,11 +1,19 @@
-@font-face { font-family: Nikodecs; src: url('../fonts/RegencieLight.ttf'); } 
-
+@font-face { 
+	font-family: RegencieLight; 
+	src: url('../fonts/RegencieLight.ttf'); 
+} 
 html, body {
     font-size: 16px;
-    font-family: Nikodecs;
+    font-family: RegencieLight;
     color: white;
     background-image:url(../img/dark_wall.png);
     height: 100%;
+}
+#container {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-image:url(../img/shattered.png);
+    color: black;
 }
 .landing {
     background: url(../img/concert.jpg) no-repeat center center fixed;
@@ -33,14 +41,11 @@ html, body {
 .landing_box_form {
     margin-top:40px;
 }
-
-
 .navbar {
     margin-left: auto;
     margin-right: auto; 
     width: 1170px;
 }
-
 h1.banner {
     font-size: 46px;
 }
@@ -64,7 +69,6 @@ h1.banner {
   	margin-top:41px;
     padding: 15px;
 }
-
 .header:after {
     position: absolute;
     top: 0;
@@ -75,70 +79,66 @@ h1.banner {
    	content: '';
 	background: url('../img/back.png') repeat center center;
 }
-	
 #wrap {
     min-height: 100%;
     height: auto !important;
     height: 100%;
     margin: 0 auto -60px;
 }
-#push,
-#footer {
+#push, #footer {
     height: 60px;
 }
-i {
-    margin-right: 8px;
+i.pre-text {
+    padding: 0 10px 0 0;
 }
 .form_div {
 	margin-top:62px;
 }
-.table-hover tbody tr:hover td,
-.table-hover tbody tr:hover th {
-  background-color: #454444;
+#table_id tr td {
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
 }
-
-
+#songthread_entry_list tr td {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #454444;
+}
 .scrolling {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
-
 .scroll_headers {
-  padding-right: 16px;
+    padding-right: 16px;
 }
-
 .scroll_padded {
-  width: 99%;
-  margin-left: 5px;
-  table-layout: fixed;
+    width: 99%;
+    margin-left: 5px;
+    table-layout: fixed;
 }
-
 .scroll_padded th {
-  padding: 0 0 0 5px;
-  text-align: left;
+    padding: 0 0 0 5px;
+    text-align: left;
 }
-
 .scroll_padded td {
-  padding: 0 0 0 5px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
+    padding: 0 0 0 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
 }
-
 .scroll_padded th.amount {
-  padding: 0 5px 0 0;
-  text-align: right;
+    padding: 0 5px 0 0;
+    text-align: right;
 }
-
 .scroll_padded td.amount {
-  padding: 0 5px 0 0;
-  text-align: right;
+    padding: 0 5px 0 0;
+    text-align: right;
 }
-
 #scroll_body {
-  height: 300px;
+    height: 300px;
 }
-
 textarea {
     resize: none;
 }
@@ -146,13 +146,12 @@ textarea {
 	background-color: inherit
 }
 #input_content {
-    width:730px
+    width:760px
 }
 .comment {
-background-color: rgba(0, 0, 0, 0.3);
-padding: 20px 20px 20px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px 20px 20px 20px;
 }
-
 input, button {
     font-family: inherit;
 }
