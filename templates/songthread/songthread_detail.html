@@ -29,19 +29,28 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-primary" href="{% url song_create songthread.id %}"><i class="icon-ok icon-white"></i>Submit an entry</a>
+        <a class="btn btn-primary pull-right" href="{% url song_create songthread.id %}"><i class="icon-ok icon-white"></i>Submit an entry</a>
     </div>
 </div>
 <div class="row-fluid">
     <div class="span4"></div>
     <div class="span8">
-        <div class="span4">
-            <h2>Comments</h2>
-            {% include "songthread/comment_form.html" with songthread_id=songthread.id %}
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>Comments</h2>
+                {% include "songthread/comment_form.html" with songthread_id=songthread.id %}
+            </div>
         </div>
-        <div class="span4">
-            bla
+        <br />
+        {% for comment in comments %}
+        <div class="row-fluid">
+            <div class="span12 comment">
+                <p>{{ comment.content }}</p>
+                <p class="pull-right"><small>{{ comment.user }} ({{ comment.created_date|timesince }} ago)</small></p>
+            </div>
         </div>
+        <br />
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

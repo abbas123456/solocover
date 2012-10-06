@@ -64,17 +64,22 @@ class SongthreadCreateView(CreateView):
             songthread_service = SongthreadService()
             songthread_service.populate_track_using_spotify_lookup(track)
         except urllib2.HTTPError:
-            return HttpResponseRedirect(self.get_success_url())    
+            return HttpResponseRedirect(self.get_failure_url())    
         track.save()
         songthread = Songthread()
         songthread.user = self.request.user
         songthread.created_date = datetime.now()
         songthread.track = track
         songthread.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.get_success_url(songthread))
     
-    def get_success_url(self):
+    def get_success_url(self, songthread):
+        return reverse('songthread_detail',
+                           kwargs={'pk': songthread.id})
+    
+    def get_failure_url(self):
         return reverse('songthread_list')
+    
     
 class SongCreateView(CreateView):
     form_class = SongForm
