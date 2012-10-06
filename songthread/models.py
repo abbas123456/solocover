@@ -25,6 +25,7 @@ class Comment(models.Model):
     songthread = models.ForeignKey(Songthread)
     user = models.ForeignKey(User)
     content = models.TextField()
+    in_reply_to = models.ForeignKey('self', blank=True, null=True)
     created_date = models.DateTimeField()
         
     

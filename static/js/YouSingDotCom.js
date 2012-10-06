@@ -61,7 +61,12 @@ var music = {
 	
 };
 
-
+var comment = {
+	addReplyToComment: function(inputElement) {
+		$('#input_content').val("@"+inputElement.attr("username")+"\n");
+		$('input[name="in_reply_to"]').val(inputElement.attr("comment_id"));
+	}
+}
 
 
 $(function() {
@@ -88,6 +93,8 @@ $(function() {
 	$('.spotify_search_choose_buttons').live('click', function(event) {return music.populateAndSubmitSongthreadForm($(event.target).attr("name"))});
 	$('#spotify_search_form_search').bind('click', function() {return music.spotifySearch(1)});
 	$('#spotify_search_form_clear').bind('click', function() {return music.clearSearchResults()});
+	$('.comment_reply_buttons').bind('click', function(event) {return comment.addReplyToComment($(event.target))});
+	
 	
 	if( ! $('#songthread_canvas').tagcanvas({
 		textFont: "Arial",
