@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'vote',
     'music',
     'songthread',
+    'account',
     'south',
     'django.contrib.admindocs',
 )
@@ -159,3 +160,5 @@ FILE_UPLOAD_HANDLERS = (
                         'django.core.files.uploadhandler.TemporaryFileUploadHandler',
                         
 )
+
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
