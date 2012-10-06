@@ -6,7 +6,7 @@
             <a class="pull-right" href="{% url songthread_detail songthread.id %}"><i class="icon-search"></i></a>
             <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
         {% endfor %}
-        <p><a class="btn btn-primary pull-left" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Create your own</a></p>
+        <p><a class="btn btn-primary btn-large" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Create your own</a></p>
    </div>
     <div class="span7" id="content">
         <h3 align="center">Most popular threads</h3>

@@ -155,3 +155,6 @@ textarea {
 input, button {
     font-family: inherit;
 }
+#songthread_canvas_container {
+    background-color: rgba(204, 204, 204, 0.4);
+}
