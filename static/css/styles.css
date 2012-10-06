@@ -146,11 +146,11 @@ textarea {
 	background-color: inherit
 }
 #input_content {
-    width:744px
+    width:730px
 }
 .comment {
 background-color: rgba(0, 0, 0, 0.3);
-padding: 5px 5px 5px 10px;
+padding: 20px 20px 20px 20px;
 }
 
 input, button {

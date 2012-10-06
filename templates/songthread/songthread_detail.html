@@ -35,6 +35,7 @@
 <div class="row-fluid">
     <div class="span4"></div>
     <div class="span8">
+        <hr/>
         <div class="row-fluid">
             <div class="span12">
                 <h2>Comments</h2>
@@ -43,12 +44,20 @@
         </div>
         <br />
         {% for comment in comments %}
-        <div class="row-fluid">
+        <div class="row">
             <div class="span12 comment">
-                <p>{{ comment.content }}</p>
-                <p class="pull-right"><small>{{ comment.user }} ({{ comment.created_date|timesince }} ago)</small></p>
+                <div class="span2">
+                    <a href="#" class="thumbnail">
+                    <img src="http://www.placehold.it/96x96" alt="">
+                </a>
+                </div>
+                <div class="span10">
+                    <p><i><small>{{ comment.user }} ({{ comment.created_date|timesince }} ago)</small></i></p>
+                    <p>{{ comment.content }}</p>
+                </div>
             </div>
         </div>
+            <p><a class="pull-right" href="#">Reply</a></p>
         <br />
         {% endfor %}
     </div>
