@@ -25,12 +25,18 @@
                             <input type="text" class="search-query" placeholder="Search">
                         </form>
                         <div class="dropdown btn-group pull-right">
-                            <a class="btn btn-primary" href="#"><i class="pre-text icon-user icon-white"></i> User</a>
+                            <a class="btn btn-primary" href="#"><i class="pre-text icon-user icon-white"></i>{% if user.is_authenticated %}{{ user}} {% else %} User {% endif %}</a>
                             <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="pre-text icon-pencil"></i>Edit profile</a></li>
-                                <li class="divider"></li>
-                                <li>{% if user.is_authenticated %}<a href="{% url logout %}?next={% url songthread_list %}"><i class="pre-text icon-off"></i>Log out</a>{% else %}<a href="{% url login %}?next={% url songthread_list %}"><i class="pre-text icon-ok-circle"></i>Log in</a>{% endif %}</li>
+                                    {% if user.is_authenticated %}
+                                        <li><a href="#"><i class="pre-text icon-pencil"></i>Edit profile</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{% url logout %}?next={% url songthread_list %}"><i class="pre-text icon-off"></i>Log out</a></li>
+                                    {% else %}
+                                        <li><a href="{% url login %}?next={% url songthread_list %}"><i class="pre-text icon-ok-circle"></i>Log in</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{% url register %}"><i class="pre-text icon-plus"></i>Register</a></li>
+                                    {% endif %}
                             </ul>
                         </div>
                     </div>

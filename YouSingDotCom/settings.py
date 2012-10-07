@@ -118,9 +118,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'vote',
     'music',
     'songthread',
+    'vote',
     'account',
     'south',
     'django.contrib.admindocs',
@@ -161,4 +161,4 @@ FILE_UPLOAD_HANDLERS = (
                         
 )
 
-AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+AUTH_PROFILE_MODULE = 'account.UserProfile'

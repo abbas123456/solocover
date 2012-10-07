@@ -68,7 +68,6 @@ var comment = {
 	}
 }
 
-
 $(function() {
 	$('#id_spotify_lookup_button').bind('click', function() {
 		if ($('#id_spotify_lookup_url').val() == "") {
@@ -94,7 +93,6 @@ $(function() {
 	$('#spotify_search_form_search').bind('click', function() {return music.spotifySearch(1)});
 	$('#spotify_search_form_clear').bind('click', function() {return music.clearSearchResults()});
 	$('.comment_reply_buttons').bind('click', function(event) {return comment.addReplyToComment($(event.target))});
-	
 	
 	if( ! $('#songthread_canvas').tagcanvas({
 		textFont: "Arial",

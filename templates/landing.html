@@ -26,35 +26,73 @@
                 <div class="span4 landing_box_right">
                 <br />
                     <h2 align="center">Register now</h2>
-                    <form class="landing_box_form form-horizontal">
-                        <div class="control-group">
-                            <label class="control-label" for="inputUsername">Username</label>
-                            <div class="controls">
-                                <input type="text" id="inputUsername" placeholder="Username">
-                            </div>
-                        </div>
-					    <div class="control-group">
-					        <label class="control-label" for="inputEmail">Email</label>
-                            <div class="controls">
-					            <input type="text" id="inputEmail" placeholder="Email">
-					        </div>
-					   </div>
-					   <div class="control-group">
-					       <label class="control-label" for="inputPassword">Password</label>
-					       <div class="controls">
-					           <input type="password" id="inputPassword" placeholder="Password">
-					       </div>
-					   </div>
-					   <div class="control-group">
-                           <label class="control-label" for="inputPasswordConfirmation">Confirm password</label>
-                           <div class="controls">
-                               <input type="password" id="inputPasswordConfirmation" placeholder="Password">
-                           </div>
-                      </div>
-                      <br /><br />
+                    <form id="landing_page_register_form" action="." class="landing_box_form form-horizontal" method="post">
+				        {% csrf_token %}
+				        {% if form.username.errors %}
+				       <div class="control-group error">
+				           <label class="control-label" for="id_username">Username</label>
+				           <div class="controls">
+				               {{ form.username }}
+				               <span class="help-inline">{{ form.username.errors }}</span>
+				           </div>
+				       </div>
+				    {% else %}
+				       <div class="control-group">
+				           <label class="control-label" for="id_username">Username</label>
+				           <div class="controls">
+				               {{ form.username }}
+				           </div>
+				       </div>
+				    {% endif %}
+				    {% if form.email.errors %}
+				       <div class="control-group error">
+				           <label class="control-label" for="id_email">Email</label>
+				           <div class="controls">
+				               {{ form.email }}
+				           </div>
+				       </div>
+				    {% else %}
+				       <div class="control-group">
+				           <label class="control-label" for="id_email">Email</label>
+				           <div class="controls">
+				               {{ form.email }}
+				           </div>
+				       </div>
+				    {% endif %}
+				    {% if form.password.errors %}
+				        <div class="control-group error">
+				           <label class="control-label" for="id_password">Password</label>
+				           <div class="controls">
+				               {{ form.password }}
+				           </div>
+				       </div>
+				    {% else %}
+				       <div class="control-group">
+				           <label class="control-label" for="id_password">Password</label>
+				           <div class="controls">
+				               {{ form.password }}
+				           </div>
+				       </div>
+				    {% endif %}
+				    {% if form.non_field_errors %}
+				        <div class="control-group error">
+				           <label class="control-label" for="id_password_confirm">Confirm password</label>
+				           <div class="controls">
+				               {{ form.password_confirm }}
+				           </div>
+				       </div>
+				    {% else %}
+				       <div class="control-group">
+				           <label class="control-label" for="id_password_confirm">Confirm password</label>
+				           <div class="controls">
+				               {{ form.password_confirm }}
+				           </div>
+				       </div>
+				    {% endif %}      
+				    <br />
 					  <div class="control-group">
 					      <div class="controls">
-					          <button type="submit" class="pull-right btn btn-primary">Register</button>
+                            <input type="submit" class="btn btn-primary pull-right" value="Register" />
 					      </div>
 					  </div>
 					</form>
