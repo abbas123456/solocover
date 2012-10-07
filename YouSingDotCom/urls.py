@@ -8,7 +8,7 @@ from songthread.views import SongthreadListView, SongthreadDetailView, Songthrea
 from django.contrib.auth.decorators import login_required
 from vote.views import VoteCreateView
 from YouSingDotCom.views import LandingPageView
-from account.views import UserCreateView
+from account.views import UserCreateView, UserUpdateView
 
 admin.autodiscover()
 
@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^accounts/register/$', UserCreateView.as_view(), name='register'),
-
+    url(r'^accounts/edit-profile/$', UserUpdateView.as_view(), name='edit_profile'),
 )
 
 if DEBUG:

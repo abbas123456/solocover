@@ -9,6 +9,17 @@ class UserProfileForm(ModelForm):
         model = UserProfile
         exclude = ('user')
 
+class UserUpdateForm(ModelForm):
+    password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=False))
+    
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+        
+    class Meta:
+        model = User
+        exclude = ('first_name', 'last_name', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined', 'groups', 'user_permissions')
+    
 class UserForm(ModelForm):
     password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))
     password_confirm = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))

@@ -29,7 +29,7 @@
                             <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                     {% if user.is_authenticated %}
-                                        <li><a href="#"><i class="pre-text icon-pencil"></i>Edit profile</a></li>
+                                        <li><a href="{% url edit_profile %}"><i class="pre-text icon-pencil"></i>Edit profile</a></li>
                                         <li class="divider"></li>
                                         <li><a href="{% url logout %}?next={% url songthread_list %}"><i class="pre-text icon-off"></i>Log out</a></li>
                                     {% else %}
