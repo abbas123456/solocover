@@ -12,8 +12,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         user_profile = UserProfile()
         user_profile.user = instance
         user_profile.save()
-        #UserProfile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
 
-#User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

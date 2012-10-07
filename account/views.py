@@ -21,5 +21,5 @@ class UserCreateView(CreateView):
     def form_valid(self, form):
         user_service = UserService()
         user_service.create_user_object(form)
-        user_service.log_user_in(self.request, form)
+        user_service.log_user_in(self.request, form.instance.username, form.instance.password)
         return HttpResponseRedirect(reverse('songthread_list'))

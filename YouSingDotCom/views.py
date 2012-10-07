@@ -26,7 +26,7 @@ class LandingPageView(TemplateView):
         if form.is_valid():
             user_service = UserService()
             user_service.create_user_object(form)
-            user_service.log_user_in(request, form)
+            user_service.log_user_in(request, form.instance.username, form.instance.password)
             return HttpResponseRedirect(reverse('songthread_list'))
         else:
             return render_to_response(self.template_name, {'form': form}, context_instance=RequestContext(request))

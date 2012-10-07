@@ -10,7 +10,7 @@ class UserService():
         user = User.objects.create_user(username, email, password)
         return user
     
-    def log_user_in(self, request, form):
-        authenticated_user = authenticate(username=form.instance.username, password=form.instance.password)
+    def log_user_in(self, request, username, password):
+        authenticated_user = authenticate(username=username, password=password)
         if authenticated_user is not None:
             login(request, authenticated_user)
