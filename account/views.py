@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.views.generic import CreateView,UpdateView
-from account.forms import UserForm, UserUpdateForm
+from account.forms import UserForm, UserProfileForm, UserUpdateForm
 from account.services import UserService
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -8,6 +8,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from account.models import UserProfile
+from django.contrib import messages
 
 class UserCreateView(CreateView):
     form_class = UserForm
@@ -31,6 +33,11 @@ class UserUpdateView(UpdateView):
     template_name_suffix = '_update_form'
     form_class = UserUpdateForm
 
+    def get_context_data(self, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        context['user_profile_form'] = UserProfileForm(instance=self.request.user.get_profile())
+        return context
+    
     def get_object(self):
         return self.request.user
     
@@ -40,6 +47,12 @@ class UserUpdateView(UpdateView):
     
     def form_valid(self, form):
         user = form.save()
+        user_profile_form = UserProfileForm(self.request.POST, self.request.FILES, instance=user.get_profile())
+        if user_profile_form.is_valid():
+            user_profile_form.save()
+        else:
+            messages.add_message(self.request, messages.INFO, user_profile_form._errors['profile_image'])
+            return HttpResponseRedirect(reverse('edit_profile'))
         if form.cleaned_data['new_password']:
             user.set_password(form.cleaned_data['new_password'])
             user.save()

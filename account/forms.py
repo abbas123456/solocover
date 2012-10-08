@@ -3,11 +3,21 @@ from django import forms
 from django.contrib.auth.models import User
 from account.models import UserProfile
 from django.core.exceptions import ValidationError
+from django.db.models.fields.files import FieldFile
 
 class UserProfileForm(ModelForm):
+    accepted_file_types = ['image/jpeg']
+    
     class Meta:
         model = UserProfile
         exclude = ('user')
+        
+    def clean_profile_image(self):
+        file_object = self.cleaned_data['profile_image']
+        if not isinstance(file_object, FieldFile):
+            if file_object.content_type not in self.accepted_file_types:
+                raise ValidationError("You can only upload jpeg files")
+        return file_object
 
 class UserUpdateForm(ModelForm):
     new_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block primary %}
-    <form id="register_form" method="post" action="." class="form-horizontal form_div">
+    {{ formset }}
+    
+    <form id="register_form" method="post" action="." class="form-horizontal form_div" enctype="multipart/form-data">
         {% csrf_token %}
+        <fieldset>
         {% if form.username.errors %}
        <div class="control-group error">
            <label class="control-label" for="id_username">Username</label>
@@ -66,6 +69,42 @@
            </div>
        </div>
     {% endif %}
+    </fieldset>
+    <hr />
+    <fieldset>
+    {% if user_profile_form.about_me.errors %}
+       <div class="control-group error">
+           <label class="control-label" for="id_about_me">About me</label>
+           <div class="controls">
+               {{ user_profile_form.about_me }}
+               <span class="help-inline">{{ user_profile_form.about_me.errors }}</span>
+           </div>
+       </div>
+    {% else %}
+       <div class="control-group">
+           <label class="control-label" for="id_about_me">About me</label>
+           <div class="controls">
+               {{ user_profile_form.about_me }}
+           </div>
+       </div>
+    {% endif %}
+    {% if messages %}
+       <div class="control-group error">
+           <label class="control-label" for="id_profile_image">Profile image</label>
+           <div class="controls">
+               {{ user_profile_form.profile_image }}
+               <span class="help-inline">{% for message in messages %}{{message|safe}}{% endfor %}</span>
+           </div>
+       </div>
+    {% else %}
+       <div class="control-group">
+           <label class="control-label" for="id_profile_image">Profile image</label>
+           <div class="controls">
+               {{ user_profile_form.profile_image }}
+           </div>
+       </div>
+    {% endif %}
+    </fieldset>
     <div class="control-group">
         <div class="controls">
             <input type="submit" class="btn btn-primary" value="Save" />
