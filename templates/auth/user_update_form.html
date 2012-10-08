@@ -34,19 +34,35 @@
            </div>
        </div>
     {% endif %}
-    {% if form.password.errors %}
+    {% if form.non_field_errors %}
         <div class="control-group error">
-           <label class="control-label" for="id_password">Password</label>
+           <label class="control-label" for="id_new_password">New password</label>
            <div class="controls">
-               {{ form.password }}
-               <span class="help-inline">{{ form.password.errors }}</span>
+               {{ form.new_password }}
+               <span class="help-inline">{{ form.non_field_errors }}</span>
            </div>
        </div>
     {% else %}
        <div class="control-group">
-           <label class="control-label" for="id_password">Password</label>
+           <label class="control-label" for="id_new_password">New password</label>
            <div class="controls">
-               {{ form.password }}
+               {{ form.new_password }}
+           </div>
+       </div>
+    {% endif %}
+    {% if form.non_field_errors %}
+        <div class="control-group error">
+           <label class="control-label" for="id_new_password_confirm">Confirm new password</label>
+           <div class="controls">
+               {{ form.new_password_confirm }}
+               <span class="help-inline">{{ form.non_field_errors }}</span>
+           </div>
+       </div>
+    {% else %}
+       <div class="control-group">
+           <label class="control-label" for="id_new_password_confirm">Confirm new password</label>
+           <div class="controls">
+               {{ form.new_password_confirm }}
            </div>
        </div>
     {% endif %}

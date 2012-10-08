@@ -37,3 +37,12 @@ class UserUpdateView(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(UserUpdateView, self).dispatch(*args, **kwargs)
+    
+    def form_valid(self, form):
+        user = form.save()
+        if form.cleaned_data['new_password']:
+            user.set_password(form.cleaned_data['new_password'])
+            user.save()
+            return HttpResponseRedirect(reverse('songthread_list'))
+        else:
+            return HttpResponseRedirect(reverse('songthread_list'))
