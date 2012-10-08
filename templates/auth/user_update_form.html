@@ -88,12 +88,12 @@
            </div>
        </div>
     {% endif %}
-    {% if messages %}
+    {% if user_profile_form.profile_image.errors %}
        <div class="control-group error">
            <label class="control-label" for="id_profile_image">Profile image</label>
            <div class="controls">
                {{ user_profile_form.profile_image }}
-               <span class="help-inline">{% for message in messages %}{{message|safe}}{% endfor %}</span>
+               <span class="help-inline">{{ user_profile_form.profile_image.errors }}</span>
            </div>
        </div>
     {% else %}
