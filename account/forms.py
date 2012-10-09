@@ -8,6 +8,7 @@ from django.contrib.auth import models
 
 class UserProfileForm(ModelForm):
     accepted_file_types = ['image/jpeg']
+    about_me = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = UserProfile
         exclude = ('user')
