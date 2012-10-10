@@ -3,11 +3,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from YouSingDotCom.settings import DEBUG
+from solocover.settings import DEBUG
 from songthread.views import SongthreadListView, SongthreadDetailView, SongthreadCreateView, SongCreateView, CommentCreateView
 from django.contrib.auth.decorators import login_required
 from vote.views import VoteCreateView
-from YouSingDotCom.views import LandingPageView
+from solocover.views import LandingPageView
 from account.views import UserCreateView, UserUpdateView
 
 admin.autodiscover()

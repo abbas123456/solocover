@@ -64,7 +64,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/var/www/YouSingDotCom/static',
+    '/var/www/solocover/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -98,13 +98,13 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'YouSingDotCom.urls'
+ROOT_URLCONF = 'solocover.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'YouSingDotCom.wsgi.application'
+WSGI_APPLICATION = 'solocover.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/var/www/YouSingDotCom/templates',
+    '/var/www/solocover/templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
