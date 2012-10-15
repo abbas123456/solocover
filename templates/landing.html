@@ -24,18 +24,19 @@
 
     <body class="landing">
         <div id="wrap">
-        <div class="container landing_box">
-            <div class="row">
-                <div class="span7">
+        <div class="container-fluid">
+            <div class="row-fluid"><br /><br /><br /><br /><br /><br /></div>
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span6 landing_box">
                     <div class="hero-unit">
                         <h1>Solocover</h1>
                         <p class="lead">Take to the stage</p>
                         <p class="lead">Explore your favourite songs and listen to cover versions by friends and family.</p>
-                        <p><a href="{% url songthread_list %}" class="btn btn-primary btn-large">Explore Solocover</a></p>
+                        <p><a href="{% url songthread_list %}" class="btn btn-primary btn-large pull-right">Explore Solocover</a></p>
                    </div>
                 </div>
-                <div class="span4 landing_box_right">
-                <br />
+                <div class="span4 landing_box">
                     <h2 align="center">Register now</h2>
                     <form id="landing_page_register_form" action="." class="landing_box_form form-horizontal" method="post">
 				        {% csrf_token %}
@@ -100,17 +101,16 @@
 				           </div>
 				       </div>
 				    {% endif %}      
-				    <br />
 					  <div class="control-group">
 					      <div class="controls">
-                            <input type="submit" class="btn btn-primary pull-right" value="Register" />
+                            <input type="submit" class="btn btn-primary" value="Register" />
 					      </div>
 					  </div>
 					</form>
                 </div>
             </div>
         </div>
-            <div id="wrap"></div>
+            <div class="footer-wrap" id="push"></div>
         </div>
         <footer class="footer">
             <div class="container">

@@ -29,17 +29,7 @@ div.hero-unit {
     zoom:1;
 }
 .landing_box {
-	height:400px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 30%;
-    margin: auto;
     background-color: rgba(0, 0, 0, 0.8);
-}
-.landing_box_right {
-	border-left: 1px solid #eee;
 }
 .landing_box_form {
     margin-top:40px;
