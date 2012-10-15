@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.views.generic import CreateView,UpdateView
+from django.views.generic import CreateView,UpdateView,DetailView
 from account.forms import UserForm, UserProfileForm, UserUpdateForm
 from account.services import UserService
 from django.http import HttpResponseRedirect
@@ -8,8 +8,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from account.models import UserProfile
-from django.contrib import messages
+from songthread.models import Song
 
 class UserCreateView(CreateView):
     form_class = UserForm
@@ -58,3 +57,11 @@ class UserUpdateView(UpdateView):
             return HttpResponseRedirect(reverse('songthread_list'))
         else:
             return HttpResponseRedirect(reverse('songthread_list'))
+        
+class UserDetailView(DetailView):
+    model=User
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['songs'] = Song.objects.filter(user_id=self.kwargs['pk'])
+        return context

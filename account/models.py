@@ -1,12 +1,18 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
+from solocover.settings import STATIC_URL
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     profile_image = models.FileField(upload_to = 'images/')
-    about_me = models.CharField(max_length=256) 
-
+    about_me = models.CharField(max_length=256)
+    
+    def get_profile_image_path(self):
+        if self.profile_image:
+            return self.profile_image.url
+        else:
+            return "{0}{1}".format(STATIC_URL, 'img/anon.jpeg')
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = UserProfile()

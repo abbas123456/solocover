@@ -32,8 +32,8 @@
         <ul class="thumbnails">
             {% for user in top_users %}
                 <li class="span12">
-                    <a href="#" class="thumbnail">
-                        <img src="{{ user.get_profile.profile_image.url}}" alt="{{ user }}">
+                    <a href="{% url view_profile user.id %}" class="thumbnail">
+                        <img src="{{ user.get_profile.get_profile_image_path}}" alt="{{ user }}">
                     </a>
                 </li>
             {% endfor %}

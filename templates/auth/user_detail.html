@@ -3,33 +3,29 @@
 {% block primary %}
 <div class="row-fluid">
     <div class="span4">
-        <h2>Track name</h2>
-        <h3>{{ object.track }}</h3>
-        <iframe src="{{ spotify_embed_url }}{{ object.track.spotify_uri }}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+        <h2>{{ object }}</h2>
+        <img src="{{ object.get_profile.get_profile_image_path }}" alt="{{ object }}">
+        <p class="lead">About me</p>
+        <p>{{ object.get_profile.about_me }}</p>
     </div>
     <div class="span8">
     <h2>All entries</h2>
         <table id="songthread_entry_list" class="table">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Username</th>
+                    <th>Song</th>
                     <th>Listen</th>
-                    <th>Vote</th>
                 </tr>
             </thead>
             <tbody>
                 {% for song in songs %}
                     <tr>
-                        <td>{{ song.number_of_votes }}</td>
-                        <td>{{ song.user }}</td>
+                        <td>{{ song.songthread.track }}</td>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
-                        <td>{% include "vote/vote_form.html" with vote=song.vote %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-primary pull-right" href="{% url song_create songthread.id %}"><i class="pre-text icon-plus icon-white"></i>Submit an entry</a>
     </div>
 </div>
 <div class="row-fluid">
@@ -44,7 +40,6 @@
                 </a>
             </div>
             <div class="span9" id="comment_form">
-                {% include "songthread/comment_form.html" with songthread_id=songthread.id %}
             </div>
         </div>
         <br />
@@ -53,7 +48,7 @@
             <div class="span12 comment">
                 <div class="span2">
                     <a href="{% url view_profile comment.user.id %}" class="thumbnail">
-                    <img src="{{ comment.user.get_profile.get_profile_image_path }}" alt="{{ comment.user }}">
+                    <img src="{{ comment.user.get_profile.get_profile_image_path}}" alt="{{ comment.user }}" alt="">
                 </a>
                 </div>
                 <div class="span10">
