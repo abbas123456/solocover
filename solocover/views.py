@@ -6,9 +6,12 @@ from account.services import UserService
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+class AboutPageView(TemplateView):
+    template_name = "solocover/about.html"
+    
 class LandingPageView(TemplateView):
 
-    template_name = "landing.html"
+    template_name = "solocover/landing.html"
     
     def get(self, request, *args, **kwargs):
         form = UserForm()

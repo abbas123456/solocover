@@ -7,7 +7,7 @@ from solocover.settings import DEBUG
 from songthread.views import SongthreadListView, SongthreadDetailView, SongthreadCreateView, SongCreateView, CommentCreateView
 from django.contrib.auth.decorators import login_required
 from vote.views import VoteCreateView
-from solocover.views import LandingPageView
+from solocover.views import LandingPageView,AboutPageView
 from account.views import UserCreateView, UserUpdateView
 
 admin.autodiscover()
@@ -15,6 +15,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', LandingPageView.as_view(), name='landing_page'),
+    url(r'^about/$', AboutPageView.as_view(), name='about_page'),
     url(r'^threads/$', SongthreadListView.as_view(), name='songthread_list'),
     url(r'^thread/add/$', SongthreadCreateView.as_view(), name='songthread_create'),
     url(r'^thread/(?P<pk>\d+)/$', SongthreadDetailView.as_view(), name='songthread_detail'),
