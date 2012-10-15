@@ -36,15 +36,20 @@
     <div class="span4"></div>
     <div class="span8">
         <hr/>
-        <div class="row">
-            <div class="span12" id="comment_form">
-                <h2>Comments</h2>
+        <div class="row-fluid">
+            <h2>Comments</h2>
+            <div class="span2">
+            <a href="#" class="thumbnail">
+                    <img src="http://www.placehold.it/96x96" alt="">
+                </a>
+            </div>
+            <div class="span9" id="comment_form">
                 {% include "songthread/comment_form.html" with songthread_id=songthread.id %}
             </div>
         </div>
         <br />
         {% for comment in comments %}
-        <div class="row">
+        <div class="row-fluid">
             <div class="span12 comment">
                 <div class="span2">
                     <a href="#" class="thumbnail">

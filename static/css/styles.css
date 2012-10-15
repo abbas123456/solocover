@@ -150,7 +150,7 @@ textarea {
 	background-color: inherit
 }
 #input_content {
-    width:760px
+   width:100%
 }
 .comment {
     background-color: rgba(0, 0, 0, 0.2);
