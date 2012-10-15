@@ -25,6 +25,7 @@ class SongthreadListView(ListView):
         context = super(SongthreadListView, self).get_context_data(**kwargs)
         context['spotify_embed_url'] = SPOTIFY_EMBED_URL
         context['latest_songthreads'] = Songthread.objects.all().order_by('-created_date')[0:5]
+        context['top_users'] =  User.objects.all().annotate(number_of_votes=Count('song__vote')).order_by('-number_of_votes')[0:4]
         return context
     
 class SongthreadDetailView(DetailView):
