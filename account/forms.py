@@ -7,7 +7,7 @@ from django.db.models.fields.files import FieldFile
 from django.contrib.auth import models
 
 class UserProfileForm(ModelForm):
-    accepted_file_types = ['image/jpeg']
+    accepted_file_types = ['image/jpeg', 'image/bmp', 'image/gif', 'image/png', 'image/tiff']
     about_me = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = UserProfile
