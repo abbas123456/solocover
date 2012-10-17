@@ -38,7 +38,7 @@ class UserUpdateForm(ModelForm):
         
     def clean(self):
         cleaned_data = super(UserUpdateForm, self).clean()
-        if 'new_password' not in cleaned_data and 'new_password_confirm' not in cleaned_data and 'current_password' not in cleaned_data:
+        if not cleaned_data['new_password'] and not cleaned_data['new_password_confirm'] and not cleaned_data['current_password']:
             return cleaned_data
         
         current_password = cleaned_data['current_password']
