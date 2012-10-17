@@ -152,3 +152,15 @@ input, button {
 #songthread_canvas_container {
     background-color: rgba(204, 204, 204, 0.4);
 }
+
+#frame {
+    width: 1180px;
+    height: 820px;
+    border: none;
+    -moz-transform: scale(0.5);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.5);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+}

@@ -54,9 +54,7 @@ class UserUpdateView(UpdateView):
         if form.cleaned_data['new_password']:
             user.set_password(form.cleaned_data['new_password'])
             user.save()
-            return HttpResponseRedirect(reverse('songthread_list'))
-        else:
-            return HttpResponseRedirect(reverse('songthread_list'))
+        return HttpResponseRedirect(reverse('edit_profile'))
         
 class UserDetailView(DetailView):
     model=User

@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block primary %}
-    {{ formset }}
-    
+    <div class="row-fluid">
+    <h2>Profile details</h2>
     <form id="register_form" method="post" action="." class="form-horizontal form_div" enctype="multipart/form-data">
+    <div class="span6">
         {% csrf_token %}
         <fieldset>
         {% if form.username.errors %}
@@ -83,8 +84,15 @@
            </div>
        </div>
     {% endif %}
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <a class="btn btn-inverse" href="{% url songthread_list %}">Cancel</a>
+        </div>
+    </div>
     </fieldset>
-    <hr />
+    </div>
+    <div class="span6">
     <fieldset>
     {% if user_profile_form.about_me.errors %}
        <div class="control-group error">
@@ -119,11 +127,13 @@
        </div>
     {% endif %}
     </fieldset>
-    <div class="control-group">
-        <div class="controls">
-            <input type="submit" class="btn btn-primary" value="Save" />
-            <a class="btn btn-inverse" href="{% url songthread_list %}">Cancel</a>
-        </div>
     </div>
     </form>
+    </div>
+    <div class="row-fluid">
+    <h2>Preview</h2>
+    <div class="span1">
+        <iframe id="frame" src="{% url view_profile object.id %}"></iframe>
+    </div>
+    </div>
 {% endblock %}
