@@ -43,7 +43,7 @@
                                         <li class="divider"></li>
                                         <li><a href="{% url logout %}?next={% url songthread_list %}"><i class="pre-text icon-off"></i>Log out</a></li>
                                     {% else %}
-                                        <li><a href="{% url login %}?next={% url songthread_list %}"><i class="pre-text icon-ok-circle"></i>Log in</a></li>
+                                        <li><a href="{% url login %}?next={% url edit_profile %}"><i class="pre-text icon-ok-circle"></i>Log in</a></li>
                                         <li class="divider"></li>
                                         <li><a href="{% url register %}"><i class="pre-text icon-plus"></i>Register</a></li>
                                     {% endif %}
