@@ -164,3 +164,6 @@ input, button {
     -webkit-transform: scale(0.5);
     -webkit-transform-origin: 0 0;
 }
+div .span4_tight {
+    width: 30% !important
+}

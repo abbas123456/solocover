@@ -3,7 +3,7 @@
     <div class="row-fluid">
     <h2>Profile details</h2>
     <form id="register_form" method="post" action="." class="form-horizontal form_div" enctype="multipart/form-data">
-    <div class="span6">
+    <div class="span4 span4_tight">
         {% csrf_token %}
         <fieldset>
         {% if form.username.errors %}
@@ -92,21 +92,53 @@
     </div>
     </fieldset>
     </div>
-    <div class="span6">
+    <div class="span4 span4_tight">
     <fieldset>
-    {% if user_profile_form.about_me.errors %}
+    {% if user_profile_form.location.errors %}
        <div class="control-group error">
-           <label class="control-label" for="id_about_me">About me</label>
+           <label class="control-label" for="id_location">Location</label>
            <div class="controls">
-               {{ user_profile_form.about_me }}
-               <span class="help-inline">{{ user_profile_form.about_me.errors }}</span>
+               {{ user_profile_form.location }}
+               <span class="help-inline">{{ user_profile_form.location.errors }}</span>
            </div>
        </div>
     {% else %}
        <div class="control-group">
-           <label class="control-label" for="id_about_me">About me</label>
+           <label class="control-label" for="id_location">Location</label>
            <div class="controls">
-               {{ user_profile_form.about_me }}
+               {{ user_profile_form.location }}
+           </div>
+       </div>
+    {% endif %}    
+    {% if user_profile_form.likes.errors %}
+       <div class="control-group error">
+           <label class="control-label" for="id_likes">Likes</label>
+           <div class="controls">
+               {{ user_profile_form.likes }}
+               <span class="help-inline">{{ user_profile_form.likes.errors }}</span>
+           </div>
+       </div>
+    {% else %}
+       <div class="control-group">
+           <label class="control-label" for="id_likes">Likes</label>
+           <div class="controls">
+               {{ user_profile_form.likes }}
+           </div>
+       </div>
+    {% endif %}
+    {% if user_profile_form.dislikes.errors %}
+       <div class="control-group error">
+           <label class="control-label" for="id_dislikes">Dislikes</label>
+           <div class="controls">
+               {{ user_profile_form.dislikes }}
+               <span class="help-inline">{{ user_profile_form.dislikes.errors }}</span>
+           </div>
+       </div>
+    {% else %}
+       <div class="control-group">
+           <label class="control-label" for="id_dislikes">Dislikes</label>
+           <div class="controls">
+               {{ user_profile_form.dislikes }}
            </div>
        </div>
     {% endif %}
@@ -123,6 +155,26 @@
            <label class="control-label" for="id_profile_image">Profile image</label>
            <div class="controls">
                {{ user_profile_form.profile_image }}
+           </div>
+       </div>
+    {% endif %}
+    </fieldset>
+    </div>
+    <div class="span4 span4_tight">
+    <fieldset>
+    {% if user_profile_form.about_me.errors %}
+       <div class="control-group error">
+           <label class="control-label" for="id_about_me">About me</label>
+           <div class="controls">
+               {{ user_profile_form.about_me }}
+               <span class="help-inline">{{ user_profile_form.about_me.errors }}</span>
+           </div>
+       </div>
+    {% else %}
+       <div class="control-group">
+           <label class="control-label" for="id_about_me">About me</label>
+           <div class="controls">
+               {{ user_profile_form.about_me }}
            </div>
        </div>
     {% endif %}

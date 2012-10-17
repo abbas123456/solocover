@@ -5,8 +5,15 @@
     <div class="span4">
         <h2>{{ object }}</h2>
         <img src="{{ object.get_profile.get_profile_image_path }}" alt="{{ object }}">
-        <p class="lead">About me</p>
+        <h4>Location</h4>
+        <p>{{ object.get_profile.location }}</p>
+        <h4>About me</h4>
         <p>{{ object.get_profile.about_me }}</p>
+        <h4>Likes</h4>
+        <p>{{ object.get_profile.likes }}</p>
+        <h4>Dislikes</h4>
+        <p>{{ object.get_profile.dislikes }}</p>
+        
     </div>
     <div class="span8">
     <h2>All entries</h2>
@@ -26,47 +33,6 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-</div>
-<div class="row-fluid">
-    <div class="span4"></div>
-    <div class="span8">
-        <hr/>
-        <div class="row-fluid">
-            <h2>Comments</h2>
-            <div class="span2">
-            <a href="#" class="thumbnail">
-                    <img src="http://www.placehold.it/96x96" alt="">
-                </a>
-            </div>
-            <div class="span9" id="comment_form">
-            </div>
-        </div>
-        <br />
-        {% for comment in comments %}
-        <div class="row-fluid">
-            <div class="span12 comment">
-                <div class="span2">
-                    <a href="{% url view_profile comment.user.id %}" class="thumbnail">
-                    <img src="{{ comment.user.get_profile.get_profile_image_path}}" alt="{{ comment.user }}" alt="">
-                </a>
-                </div>
-                <div class="span10">
-                    <i class="icon-envelope pull-right"></i>
-                    <p><i><small>{{ comment.user }} ({{ comment.created_date|timesince }} ago)</small></i></p>
-                    <p>{{ comment.content }}</p>
-                    <blockquote>
-                        <p><i>{{ comment.in_reply_to.content }}</i></p>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-            <p>
-                <a class="btn btn-inverse pull-right" href="#" comment_id="{{ comment.id }}"><i class="icon-warning-sign icon-white pre-text"></i>Report</a>
-                <a class="btn btn-primary comment_reply_buttons pull-right" href="#comment_form" comment_id="{{ comment.id }}" username="{{ comment.user }}"><i class="icon-repeat icon-white pre-text"></i>Reply</a>
-            </p>
-        <br /><br />
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

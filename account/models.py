@@ -6,7 +6,10 @@ from solocover.settings import STATIC_URL
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     profile_image = models.FileField(upload_to = 'images/')
-    about_me = models.CharField(max_length=256)
+    about_me = models.CharField(max_length=512)
+    location = models.CharField(max_length=64)
+    likes = models.CharField(max_length=128)
+    dislikes = models.CharField(max_length=128)
     
     def get_profile_image_path(self):
         if self.profile_image:
