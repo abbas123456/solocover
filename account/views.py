@@ -50,7 +50,7 @@ class UserUpdateView(UpdateView):
         if user_profile_form.is_valid():
             user_profile_form.save()
         else:
-            return render_to_response('auth/user_update_form.html', {'form': form, 'user_profile_form' : user_profile_form}, context_instance=RequestContext(self.request))
+            return render_to_response('auth/user_update_form.html', {'object' : user, 'form': form, 'user_profile_form' : user_profile_form}, context_instance=RequestContext(self.request))
         if form.cleaned_data['new_password']:
             user.set_password(form.cleaned_data['new_password'])
             user.save()
