@@ -1,0 +1,33 @@
+html, body {
+    font-size: 16px;
+    font-family: Arial;
+    height: 100%;
+}
+.error {
+    color: white !important;	
+}
+.landing {
+    background: url(../img/concert.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/concert.jpg', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/concert.jpg', sizingMethod='scale')";
+    zoom:1;
+}
+.landing_box {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+#push, #footer {
+    height: 60px;
+}
+.hero-unit {
+	background-color: inherit
+}
