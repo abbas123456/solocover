@@ -13,13 +13,21 @@ class UserProfileForm(ModelForm):
         model = UserProfile
         exclude = ('user')
         
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['about_me'].required = True
+        self.fields['location'].required = False
+        self.fields['likes'].required = False
+        self.fields['dislikes'].required = False
+        self.fields['profile_image'].required = False
+        
     def clean_profile_image(self):
         file_object = self.cleaned_data['profile_image']
-        if not isinstance(file_object, FieldFile):
+        if file_object:
             if file_object.content_type not in self.accepted_file_types:
-                raise ValidationError("You can only upload jpeg files")
+                raise ValidationError("You can only upload image files")
         return file_object
-
+    
 class UserUpdateForm(ModelForm):
     current_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))
     new_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))
