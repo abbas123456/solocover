@@ -18,14 +18,14 @@ class SongForm(ModelForm):
         file_object = self.cleaned_data['file']
         file_path = file_object.temporary_file_path()
         if file_object.content_type not in self.accepted_file_types:
-            raise ValidationError("You can only upload mp3 files")
+            raise ValidationError("Your song needs to be in mp3 format")
         
         if file_object.content_type =='audio/mpeg':            
             mp3_file = MP3(file_path)
             number_of_seconds = ceil(mp3_file.info.length)
              
-        if number_of_seconds > 30 or number_of_seconds < 10:
-            raise ValidationError("Your song needs to be between 10 and 30 seconds")
+        if number_of_seconds > 180:
+            raise ValidationError("Your song needs to be three minutes or less")
         else:
             return file_object
     class Meta:
