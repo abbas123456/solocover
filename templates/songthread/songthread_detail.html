@@ -35,12 +35,16 @@
 <div class="row-fluid">
     <div class="span4"></div>
     <div class="span8">
-        <hr/>
+        <hr id="comments_header" />
         <div class="row-fluid">
             <h2>Comments</h2>
             <div class="span2">
-            <a href="#" class="thumbnail">
-                    <img src="http://www.placehold.it/96x96" alt="">
+                <a href="#" class="thumbnail">
+                    {% if user.is_authenticated %}    
+                        <img src="{{ user.get_profile.get_profile_image_path }}" alt="{{ user }}">
+                    {% else %}
+                        <img src="{{ anonymous_user.get_profile.get_profile_image_path }}" alt="Anonymous">
+                    {% endif %}
                 </a>
             </div>
             <div class="span9" id="comment_form">
@@ -57,7 +61,7 @@
                 </a>
                 </div>
                 <div class="span10">
-                    <i class="icon-envelope pull-right"></i>
+                    <a class="pull-right comment_reply_buttons" title="Reply" href="#" comment_id="{{ comment.id }}" username="{{ comment.user }}"><i class="icon-repeat"></i></a>
                     <p><i><small>{{ comment.user }} ({{ comment.created_date|timesince }} ago)</small></i></p>
                     <p>{{ comment.content }}</p>
                     <blockquote>
@@ -66,11 +70,7 @@
                 </div>
             </div>
         </div>
-            <p>
-                <a class="btn btn-inverse pull-right" href="#" comment_id="{{ comment.id }}"><i class="icon-warning-sign icon-white pre-text"></i>Report</a>
-                <a class="btn btn-primary comment_reply_buttons pull-right" href="#comment_form" comment_id="{{ comment.id }}" username="{{ comment.user }}"><i class="icon-repeat icon-white pre-text"></i>Reply</a>
-            </p>
-        <br /><br />
+        <hr />
         {% endfor %}
     </div>
 </div>

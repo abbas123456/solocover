@@ -44,7 +44,8 @@ class SongthreadDetailView(DetailView):
         comments = Comment.objects.filter(songthread_id=songthread_id_kwarg)\
                                   .order_by('-created_date')
         context['songs'] = songs
-        context['comments'] = comments                          
+        context['comments'] = comments
+        context['anonymous_user'] = User.objects.get(username='Anonymous')   
         return context
 
 class SongthreadCreateView(CreateView):
