@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from solocover.settings import STATIC_URL
+from PIL import Image #@UnresolvedImport
+
+THUMBNAIL_SIZE = 350, 350
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -16,6 +19,14 @@ class UserProfile(models.Model):
             return self.profile_image.url
         else:
             return "{0}{1}".format(STATIC_URL, 'img/anon.jpeg')
+    
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save()
+        if self.profile_image:
+            image = Image.open(self.profile_image.path)
+            image.thumbnail(THUMBNAIL_SIZE,Image.ANTIALIAS)
+            image.save(self.profile_image.path)
+            
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = UserProfile()
