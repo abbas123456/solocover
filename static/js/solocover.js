@@ -53,7 +53,8 @@ var music = {
 		$('#spotify_search_results_pagination').html('<div class="pagination"><ul></ul></div>');
 		return false;
 	},
-	populateAndSubmitSongthreadForm: function (spotifyUri) {
+	populateAndSubmitSongthreadForm: function (inputElement) {
+		spotifyUri = $(inputElement).attr("name");
 		$('#id_spotify_uri').attr("value", spotifyUri);
 		$('#songthread_create_form').submit();
 		return false;
@@ -93,10 +94,10 @@ $(function() {
 	
 	$('#spotify_search_form').bind('submit', function() {return music.spotifySearch(1)});
 	$('.spotify_search_pagination_buttons').live('click', function(event) {event.preventDefault();return music.spotifySearch($(event.target).html())});
-	$('.spotify_search_choose_buttons').live('click', function(event) {return music.populateAndSubmitSongthreadForm($(event.target).attr("name"))});
+	$('.spotify_search_choose_buttons').live('click', function(event) {return music.populateAndSubmitSongthreadForm(event.target)});
 	$('#spotify_search_form_search').bind('click', function() {return music.spotifySearch(1)});
 	$('#spotify_search_form_clear').bind('click', function() {return music.clearSearchResults()});
-	$('.comment_reply_buttons').bind('click', function(event) {event.preventDefault();return comment.addReplyToComment($(event.target))});
+	$('.comment_reply_buttons').bind('click', function(event) {event.preventDefault();return comment.addReplyToComment(event.target)});
 	
 	if( ! $('#songthread_canvas').tagcanvas({
 		textFont: "Arial",
