@@ -3,7 +3,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Mohammad Abbas', 'mohammad.abbas86@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -144,13 +144,20 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'file': {
+           'level': 'DEBUG',
+           'filename': '/var/log/solocover/dev/debug.log',
+           'class': 'logging.handlers.RotatingFileHandler',
+           'maxBytes': 1024*1024*5, # 5 MB
+           'backupCount': 5,
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+            'handlers': ['mail_admins', 'file'],
+            'level': 'WARNING',
+            'propagate': False,
         },
     }
 }
