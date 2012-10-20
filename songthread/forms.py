@@ -10,7 +10,7 @@ class SongthreadForm(ModelForm):
 
 class SongForm(ModelForm):
     
-    accepted_file_types = ['audio/mpeg']
+    accepted_file_types = ['audio/mpeg', 'audio/mp3']
     
     class Meta:
         model = Song
