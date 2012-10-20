@@ -15,7 +15,7 @@ class UserProfileForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.fields['about_me'].required = True
+        self.fields['about_me'].required = False
         self.fields['location'].required = False
         self.fields['likes'].required = False
         self.fields['dislikes'].required = False
