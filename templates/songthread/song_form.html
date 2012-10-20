@@ -22,11 +22,11 @@
         <p class="lead">Please upload your file below</p>
         <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
-                {% if form.file.errors %}
+                {% if form.errors %}
                     <div class="control-group error">
                             <div class="controls">
                             {{ form.file }}
-                            <span class="help-inline">{{ form.file.errors }}</span>
+                            <span class="help-inline">{{ form.errors }}</span>
                         </div>
                     </div>
                 {% else %}

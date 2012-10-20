@@ -95,10 +95,11 @@ class SongCreateView(CreateView):
             song.created_date = datetime.now()
             songthread_id =self.kwargs['songthread_id']
             song.songthread = Songthread.objects.get(id=songthread_id)
+            song.full_clean()
             song.save()
         except ValidationError as e:
             from django.forms.util import ErrorList
-            form._errors['file'] = ErrorList(e.message_dict['user']) 
+            form._errors = ErrorList(e.message_dict['__all__']) 
             return super(SongCreateView, self).form_invalid(form)
         
         return HttpResponseRedirect(self.get_success_url(song))

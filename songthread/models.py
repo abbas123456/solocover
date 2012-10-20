@@ -17,6 +17,9 @@ class Song(models.Model):
     file = models.FileField(upload_to = 'songs/')
     created_date = models.DateTimeField()
     
+    class Meta:
+        unique_together = ('songthread', 'user',)
+    
     def __unicode__(self):
         return self.songthread.track.name
 
