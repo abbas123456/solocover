@@ -15,6 +15,7 @@ from music.forms import TrackForm
 from vote.services import VoteService
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 
 SPOTIFY_EMBED_URL = 'https://embed.spotify.com/?uri='
 
@@ -87,23 +88,20 @@ class SongCreateView(CreateView):
     form_class = SongForm
     model = Song    
     
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SongCreateView, self).dispatch(*args, **kwargs)
-    
-    def get_context_data(self, **kwargs):
-        context = super(SongCreateView, self).get_context_data(**kwargs)
-        songthread_id =self.kwargs['songthread_id']
-        context['songthread_id'] = songthread_id
-        return context
-    
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.created_date = datetime.now()
-        songthread_id =self.kwargs['songthread_id']
-        form.instance.songthread = Songthread.objects.get(id=songthread_id) 
-        form.instance.file_content_type = re.search('\/(.*)$', form.instance.file.file.content_type).group()[1:]
-        song = form.save()
+        try:
+            song = form.save(commit=False)
+            song.user = self.request.user
+            song.created_date = datetime.now()
+            songthread_id =self.kwargs['songthread_id']
+            song.songthread = Songthread.objects.get(id=songthread_id)
+            song.full_clean()
+            song.save()
+        except ValidationError as e:
+            from django.forms.util import ErrorList
+            form._errors['file'] = ErrorList(e.message_dict['user']) 
+            return super(SongCreateView, self).form_invalid(form)
+        
         return HttpResponseRedirect(self.get_success_url(song))
     
     def get_success_url(self, song):

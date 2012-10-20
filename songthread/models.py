@@ -13,13 +13,12 @@ class Songthread(models.Model):
     
 class Song(models.Model):
     songthread = models.ForeignKey(Songthread)
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     file = models.FileField(upload_to = 'songs/')
-    file_content_type = models.CharField(max_length=128)
     created_date = models.DateTimeField()
     
     def __unicode__(self):
-        return self.user
+        return self.songthread.track.name
 
 class Comment(models.Model):
     songthread = models.ForeignKey(Songthread)

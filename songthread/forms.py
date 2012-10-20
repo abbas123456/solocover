@@ -11,15 +11,18 @@ class SongthreadForm(ModelForm):
 class SongForm(ModelForm):
     
     accepted_file_types = ['audio/mpeg']
+    
+    class Meta:
+        model = Song
+        exclude = ('user','songthread','created_date')
+        
     def clean_file(self):
         file_object = self.cleaned_data['file']
         if file_object.content_type not in self.accepted_file_types:
             raise ValidationError("Your song needs to be in mp3 format")
         else:
             return file_object
-    class Meta:
-        model = Song
-        exclude = ('user', 'songthread','created_date', 'file_content_type')
+    
         
 
 class CommentForm(ModelForm):
