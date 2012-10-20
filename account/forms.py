@@ -22,11 +22,12 @@ class UserProfileForm(ModelForm):
         self.fields['profile_image'].required = False
         
     def clean_profile_image(self):
-        file_object = self.cleaned_data['profile_image']
-        if file_object:
-            if file_object.content_type not in self.accepted_file_types:
-                raise ValidationError("You can only upload image files")
-        return file_object
+        if 'profile_image' in self.cleaned_data and not isinstance(self.cleaned_data['profile_image'],FieldFile):
+            file_object = self.cleaned_data['profile_image']
+            if file_object:
+                if file_object.content_type not in self.accepted_file_types:
+                    raise ValidationError("You can only upload image files")
+                return file_object
     
 class UserUpdateForm(ModelForm):
     current_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))
