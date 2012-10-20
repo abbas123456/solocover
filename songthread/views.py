@@ -95,7 +95,6 @@ class SongCreateView(CreateView):
             song.created_date = datetime.now()
             songthread_id =self.kwargs['songthread_id']
             song.songthread = Songthread.objects.get(id=songthread_id)
-            song.full_clean()
             song.save()
         except ValidationError as e:
             from django.forms.util import ErrorList

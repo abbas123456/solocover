@@ -13,7 +13,7 @@ class Songthread(models.Model):
     
 class Song(models.Model):
     songthread = models.ForeignKey(Songthread)
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     file = models.FileField(upload_to = 'songs/')
     created_date = models.DateTimeField()
     
