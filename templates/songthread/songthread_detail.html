@@ -64,7 +64,7 @@
                 </div>
                 <div class="span10">
                     <a class="pull-right comment_reply_buttons" title="Reply" href="#" comment_id="{{ comment.id }}" username="{{ comment.user }}"><i class="icon-repeat"></i></a>
-                    <p><i><small><a href="{% url view_profile comment.user.id %}">{{ comment.user }}</a> ({{ comment.created_date|timesince }} ago)</small></i></p>
+                    <p><i><small><a class="comment_hyperlink" href="{% url view_profile comment.user.id %}">{{ comment.user }}</a> ({{ comment.created_date|timesince }} ago)</small></i></p>
                     <p>{{ comment.content }}</p>
                     <blockquote>
                         <p><i>{{ comment.in_reply_to.content }}</i></p>

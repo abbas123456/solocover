@@ -138,8 +138,15 @@ textarea {
    width:100%
 }
 .comment {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 20px 20px 20px 20px;
+    color: white
+}
+.comment_hyperlink:visited {
+	color: white
+}
+.comment_hyperlink:unvisited {
+    color: white
 }
 input, button {
     font-family: inherit;
@@ -161,4 +168,8 @@ input, button {
 }
 div .span4_tight {
     width: 30% !important
+}
+div .profile_left_bar {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px 20px 20px 20px;
 }
