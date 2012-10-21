@@ -1,17 +1,8 @@
-import datetime
-import os, glob
-import os.path
-import sys
-
-from fabric.api import local, run, sudo, env, settings #@UnresolvedImport
-from fabric.colors import green, red, white, _wrap_with
-from fabric.context_managers import cd, lcd
+from fabric.api import local, run, sudo, env
+from fabric.colors import green
+from fabric.context_managers import cd
 from fabric.operations import put, prompt
-from fabric.contrib.files import upload_template
-
 from datetime import datetime
-
-from fabconfig import *
 
 def deploy():
     
@@ -29,6 +20,9 @@ def deploy():
     set_production_symlinks()
     print(green("Applying permissions"))
     apply_production_permissions()
+    print(green("Reloading apache"))
+    reload_apache()
+    
     
 def archive(archive_file, reference):
     local('git archive %s | gzip > %s ' % (reference, archive_file))
@@ -58,3 +52,7 @@ def set_production_symlinks():
     
 def apply_production_permissions():
     sudo('chown -R www-data:www-data %(BuildRoot)s' % env)
+    
+def reload_apache():
+    sudo('/etc/init.d/apache2 reload')
+    
