@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% block title %} Start a thread {% endblock %}
 {% block primary %}
+<h2>Start your own thread</h2>
 <div class="span8">
 <p class="form_div lead">Search for a track</p>
     {% include "songthread/spotify_search.html" %}
 </div>
-<div class="span4">
+<div class="span3">
     <p class="form_div lead">Or paste a Spotify URI</p>
     <div>
         <form id="songthread_create_form" method="post" action="." >

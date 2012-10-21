@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% block title %} Log in {% endblock %}
 {% block primary %}
-
-<form class="form_div form-horizontal" method="post" action="{% url django.contrib.auth.views.login %}">
+<div class="span4"></div>
+<div class="span2">
+<form class="form_div" method="post" action="{% url django.contrib.auth.views.login %}">
 	{% csrf_token %}
 	{% if form.username.errors %}
 	   <div class="control-group error">
@@ -43,5 +45,5 @@
 	    </div>
 	</div>
 </form>
-
+</div>
 {% endblock %}
