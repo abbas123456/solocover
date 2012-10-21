@@ -3,6 +3,7 @@ from fabric.colors import green
 from fabric.context_managers import cd
 from fabric.operations import put, prompt
 from datetime import datetime
+from fabconfig import *
 
 def deploy():
     
