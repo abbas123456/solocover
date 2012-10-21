@@ -40,8 +40,7 @@ class VoteCreateView(CreateView):
         return vote
     
     def get_success_url(self, vote):
-        return reverse('songthread_detail',
-                        kwargs={'pk': vote.song.songthread.id})
+        return vote.song.songthread.get_absolute_url()
         
     def get_failure_url(self):
         return reverse('songthread_list')

@@ -77,8 +77,7 @@ class SongthreadCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url(songthread))
     
     def get_success_url(self, songthread):
-        return reverse('songthread_detail',
-                           kwargs={'pk': songthread.id})
+        return songthread.get_absolute_url()
     
     def get_failure_url(self):
         return reverse('songthread_list')
@@ -105,12 +104,8 @@ class SongCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url(song))
     
     def get_success_url(self, song):
-        return reverse('songthread_detail',
-                           kwargs={'pk': song.songthread.id})
-    def get_failure_url(self, songthread_id):
-        return reverse('songthread_detail',
-                           kwargs={'pk': songthread_id})
-        
+        return song.songthread.get_absolute_url()
+    
 class CommentCreateView(CreateView):
     form_class = CommentForm
     model = Comment
@@ -123,9 +118,10 @@ class CommentCreateView(CreateView):
     
     def form_invalid(self, form):
         songthread_id =self.kwargs['songthread_id']
+        songthread = Songthread.objects.get(id=songthread_id)
         if 'content' in form._errors:
             messages.add_message(self.request, messages.INFO, form._errors['content'])
-        return HttpResponseRedirect(self.get_failure_url(songthread_id))
+        return HttpResponseRedirect(self.get_failure_url(songthread))
 
     def form_valid(self, form):
         if not self.request.user.is_authenticated():
@@ -140,10 +136,8 @@ class CommentCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url(comment))
     
     def get_success_url(self, comment):
-        return reverse('songthread_detail',
-                           kwargs={'pk': comment.songthread.id}) 
+        return comment.songthread.get_absolute_url() 
     
-    def get_failure_url(self, songthread_id):
-        return reverse('songthread_detail',
-                           kwargs={'pk': songthread_id}) 
+    def get_failure_url(self, songthread):
+        return songthread.get_absolute_url()  
     
