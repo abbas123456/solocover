@@ -3,7 +3,7 @@
     <div class="span3">
         <h3>Latest threads</h3>
         {% for songthread in latest_songthreads %}
-            <a class="pull-right" href="{% url songthread_detail songthread.id %}"><i class="icon-search"></i></a>
+            <a class="pull-right" href="{{ songthread.get_absolute_url }}"><i class="icon-search"></i></a>
             <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
         {% endfor %}
         <p><a class="btn btn-primary btn-large" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Create your own</a></p>
@@ -22,7 +22,7 @@
         <div id="songthread_tags">
             <ul>
                 {% for songthread in object_list %}
-                    <li><a href="{% url songthread_detail songthread.id %}">{{ songthread }}</a></li>
+                    <li><a href="{{ songthread.get_absolute_url }}">{{ songthread }}</a></li>
                 {% endfor %}
             </ul>
         </div>

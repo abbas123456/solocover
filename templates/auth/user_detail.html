@@ -27,7 +27,7 @@
             <tbody>
                 {% for song in songs %}
                     <tr>
-                        <td><a href="{% url songthread_detail song.songthread.id %}">{{ song.songthread.track }}</a></td>
+                        <td><a href="{{ song.songthread.get_absolute_url }}">{{ song.songthread.track }}</a></td>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
                     </tr>
                 {% endfor %}
