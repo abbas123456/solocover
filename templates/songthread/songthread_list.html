@@ -32,7 +32,7 @@
         <ul class="thumbnails">
             {% for user in top_users %}
                 <li class="span12">
-                    <a href="{% url view_profile user.id %}" class="thumbnail">
+                    <a href="{{ user.get_profile.get_absolute_url }}" class="thumbnail">
                         <img src="{{ user.get_profile.get_profile_image_path}}" alt="{{ user }}">
                     </a>
                 </li>

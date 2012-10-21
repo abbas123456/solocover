@@ -22,7 +22,7 @@
                 {% for song in songs %}
                     <tr>
                         <td>{{ song.number_of_votes }}</td>
-                        <td><a href="{% url view_profile song.user.id %}">{{ song.user }}</a></td>
+                        <td><a href="{{ song.user.get_profile.get_absolute_url }}">{{ song.user }}</a></td>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
                         <td>{% include "vote/vote_form.html" with vote=song.vote %}</td>
                     </tr>
@@ -34,7 +34,7 @@
 </div>
 <div class="row-fluid">
     <div class="span4">
-        <p>This thread was created by <strong><a href="{% url view_profile object.user.id %}">{{ object.user }}</a></strong></p>
+        <p>This thread was created by <strong><a href="{{ object.user.get_profile.get_absolute_url }}">{{ object.user }}</a></strong></p>
     </div>
     <div class="span8">
         <hr id="comments_header" />
@@ -58,13 +58,13 @@
         <div class="row-fluid">
             <div class="span12 comment">
                 <div class="span2">
-                    <a href="{% url view_profile comment.user.id %}" class="thumbnail">
+                    <a href="{{ comment.user.get_profile.get_absolute_url }}" class="thumbnail">
                     <img src="{{ comment.user.get_profile.get_profile_image_path }}" alt="{{ comment.user }}">
                 </a>
                 </div>
                 <div class="span10">
                     <a class="pull-right comment_reply_buttons" title="Reply" href="#" comment_id="{{ comment.id }}" username="{{ comment.user }}"><i class="icon-repeat"></i></a>
-                    <p><i><small><a class="comment_hyperlink" href="{% url view_profile comment.user.id %}">{{ comment.user }}</a> ({{ comment.created_date|timesince }} ago)</small></i></p>
+                    <p><i><small><a class="comment_hyperlink" href="{{ comment.user.get_profile.get_absolute_url }}">{{ comment.user }}</a> ({{ comment.created_date|timesince }} ago)</small></i></p>
                     <p>{{ comment.content }}</p>
                     <blockquote>
                         <p><i>{{ comment.in_reply_to.content }}</i></p>

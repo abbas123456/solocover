@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^accounts/register/$', UserCreateView.as_view(), name='register'),
     url(r'^accounts/profile/$', UserUpdateView.as_view(), name='edit_profile'),
-    url(r'^accounts/view-profile/(?P<pk>\d+)/$', UserDetailView.as_view(), name='view_profile'),
+    url(r'^view-profile/(?P<slug>[-\w\d]+)/(?P<pk>\d+)/$', UserDetailView.as_view(), name='view_profile'),
     
 )
 

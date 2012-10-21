@@ -185,7 +185,7 @@
     <div class="row-fluid">
     <h2>Preview</h2>
     <div class="span1">
-        <iframe id="frame" src="{% url view_profile object.id %}"></iframe>
+        <iframe id="frame" src="{{ object.get_profile.get_absolute_url }}"></iframe>
     </div>
     </div>
 {% endblock %}
