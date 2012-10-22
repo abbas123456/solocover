@@ -30,6 +30,3 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         exclude = ('user', 'created_date', 'songthread')
-        
-    def clean_content(self):
-        return self.cleaned_data['content']
