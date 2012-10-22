@@ -21,14 +21,12 @@ class UserProfileForm(ModelForm):
         self.fields['dislikes'].required = False
         self.fields['profile_image'].required = False
         
-    def clean(self):
-        cleaned_data = super(UserProfileForm, self).clean()
-        if cleaned_data['profile_image'] and not isinstance(cleaned_data['profile_image'], FieldFile):
-            file_object = cleaned_data['profile_image']
-            if file_object:
-                if file_object.content_type not in self.accepted_file_types:
-                    raise ValidationError("You can only upload image files")
-        return cleaned_data
+    def clean_profile_image(self):
+        profile_image = self.cleaned_data['profile_image']
+        if profile_image and not isinstance(profile_image, FieldFile):
+            if profile_image.content_type not in self.accepted_file_types:
+                raise ValidationError("You can only upload image files")
+        return profile_image
         
 class UserUpdateForm(ModelForm):
     current_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))
