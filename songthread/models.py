@@ -14,8 +14,7 @@ class Songthread(models.Model):
         return self.track.name
     
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.track.name)
+        self.slug = slugify(self.track.name)
         return super(Songthread, self).save(*args, **kwargs)
     
     @models.permalink
