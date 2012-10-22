@@ -11,7 +11,7 @@ class UserProfileForm(ModelForm):
     about_me = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = UserProfile
-        exclude = ('user')
+        exclude = ('user', 'slug')
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -21,14 +21,15 @@ class UserProfileForm(ModelForm):
         self.fields['dislikes'].required = False
         self.fields['profile_image'].required = False
         
-    def clean_profile_image(self):
-        if 'profile_image' in self.cleaned_data and not isinstance(self.cleaned_data['profile_image'],FieldFile):
-            file_object = self.cleaned_data['profile_image']
+    def clean(self):
+        cleaned_data = super(UserProfileForm, self).clean()
+        if cleaned_data['profile_image'] and not isinstance(cleaned_data['profile_image'], FieldFile):
+            file_object = cleaned_data['profile_image']
             if file_object:
                 if file_object.content_type not in self.accepted_file_types:
                     raise ValidationError("You can only upload image files")
-                return file_object
-    
+        return cleaned_data
+        
 class UserUpdateForm(ModelForm):
     current_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))
     new_password = forms.CharField(max_length=200,widget=forms.PasswordInput(render_value=True))

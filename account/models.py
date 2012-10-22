@@ -23,8 +23,7 @@ class UserProfile(models.Model):
             return "{0}{1}".format(STATIC_URL, 'img/anon.jpeg')
     
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.user.username)
+        self.slug = slugify(self.user.username)
         super(UserProfile, self).save(*args, **kwargs)
         if self.profile_image:
             image = Image.open(self.profile_image.path)

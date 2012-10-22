@@ -46,7 +46,7 @@ class UserUpdateView(UpdateView):
     
     def form_valid(self, form):
         user = form.save()
-        user_profile_form = UserProfileForm(self.request.POST, self.request.FILES, instance=user.get_profile())
+        user_profile_form = UserProfileForm(self.request.POST, self.request.FILES, instance=self.request.user.get_profile())
         if user_profile_form.is_valid():
             user_profile_form.save()
         else:
