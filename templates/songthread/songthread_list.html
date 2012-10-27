@@ -4,8 +4,12 @@
     <div class="span3">
         <h3>Latest threads</h3>
         {% for songthread in latest_songthreads %}
-            <a class="pull-right" href="{{ songthread.get_absolute_url }}"><i class="icon-search"></i></a>
-            <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
+            <div class="row-fluid">
+            <div class="span9"><iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe></div>
+            <div class="span3"><a class="btn btn-inverse btn-large" href="{{ songthread.get_absolute_url }}"><i class="icon-white icon-search"></i></a></div>
+            
+            
+            </div>
         {% endfor %}
         <p><a class="btn btn-primary btn-large" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Start your own</a></p>
    </div>

@@ -1,12 +1,30 @@
-from fabric.api import local, run, sudo, env
+from fabric.api import local, run, sudo, env, settings
 from fabric.colors import green
 from fabric.context_managers import cd
 from fabric.operations import put, prompt
 from datetime import datetime
 from fabconfig import *
+from fabric.colors import _wrap_with
+
+green_bg = _wrap_with('42')
+red_bg = _wrap_with('41')
+
+# Set the list of apps to test
+env.test_apps = "account music songthread vote"
+
+
+def test():
+    with settings(warn_only=True):
+        result = local('./manage.py test %(test_apps)s -v 2 --failfast' % env,
+                       capture=False)
+    if result.failed:
+        print red_bg("Some tests failed")
+    else:
+        print
+        print green_bg("All tests passed - have a banana!")
+
 
 def deploy():
-    
     env.user = prompt('Username for remote host?')
     print(green('Got user %s' % env.user))
     archive_file_path = '/tmp/build-%s.tar.gz' % datetime.now()
@@ -23,23 +41,25 @@ def deploy():
     apply_production_permissions()
     print(green("Reloading apache"))
     reload_apache()
-    
-    
+
+
 def archive(archive_file, reference):
     local('git archive %s | gzip > %s ' % (reference, archive_file))
+
 
 def upload(local_path, remote_path):
     put(local_path, remote_path)
     local('rm -f %s' % local_path)
 
 
-def unpack(archive_path, temp_folder = '/tmp/build_temp'):
-    run('if [ -d "%s" ]; then rm -rf "%s"; fi' % (temp_folder,temp_folder))
+def unpack(archive_path, temp_folder='/tmp/build_temp'):
+    run('if [ -d "%s" ]; then rm -rf "%s"; fi' % (temp_folder, temp_folder))
     run('mkdir -p %s' % temp_folder)
 
     with cd('%s' % temp_folder):
         run('tar xzf %s' % archive_path)
-        sudo('if [ -d "%(BuildRoot)s" ]; then rm -rf "%(BuildRoot)s"; fi' % env)
+        sudo('if [ -d "%(BuildRoot)s" ]; then rm -rf "%(BuildRoot)s"; fi'
+             % env)
         sudo('mkdir -p %s' % env.BuildRoot)
 
     sudo('mv %s/* %s' % (temp_folder, env.BuildRoot))
@@ -47,13 +67,17 @@ def unpack(archive_path, temp_folder = '/tmp/build_temp'):
     run('rm -rf %s' % temp_folder)
     run('rm -f %s' % archive_path)
 
+
 def set_production_symlinks():
-    sudo('if [ -h %(AppRoot)s/builds/live/production ]; then unlink %(AppRoot)s/builds/live/production; fi' % env)
-    sudo('ln -sv %(AppRoot)s/builds/live/%(tag)s %(AppRoot)s/builds/live/production' % env )
-    
+    sudo('if [ -h %(AppRoot)s/builds/live/production ]; then unlink \
+    %(AppRoot)s/builds/live/production; fi' % env)
+    sudo('ln -sv %(AppRoot)s/builds/live/%(tag)s %(AppRoot)s/builds\
+    /live/production' % env)
+
+
 def apply_production_permissions():
     sudo('chown -R www-data:www-data %(BuildRoot)s' % env)
-    
+
+
 def reload_apache():
     sudo('/etc/init.d/apache2 reload')
-    
