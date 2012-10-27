@@ -3,6 +3,7 @@
 {% block primary %}
     <div class="span3">
         <h3>Latest threads</h3>
+        <p><small>Click on the <i class="icon-search"></i> icon to view the thread</small></p>
         {% for songthread in latest_songthreads %}
             <div class="row-fluid">
             <div class="span9"><iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe></div>
@@ -15,6 +16,7 @@
    </div>
     <div class="span7" id="content">
         <h3 align="center">Most popular threads</h3>
+        <p><small>Use your mouse to drag and view the different threads. You can zoom in and out with your scroll wheel</small></p>
         {% if object_list|length == 0 %}
             <p>There are currently no threads</p>
         {% endif %}
