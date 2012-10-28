@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Vote(models.Model):
     song = models.ForeignKey(Song)
     user = models.ForeignKey(User)
-    like = models.BooleanField()
+    like = models.IntegerField()
     created_date = models.DateTimeField()
 
     def __unicode__(self):

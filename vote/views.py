@@ -15,7 +15,7 @@ class VoteCreateView(CreateView):
     def get_initial(self):
         initial = super(VoteCreateView, self).get_initial()
         initial['song'] = Song.objects.get(id=self.kwargs['song_id'])
-        initial['like'] = True if self.kwargs['like'] == '1' else False
+        initial['like'] = 1 if self.kwargs['like'] == '1' else 0
         initial['user'] = self.request.user
         return initial
 
