@@ -173,3 +173,59 @@ div .profile_left_bar {
     background-color: rgba(0, 0, 0, 0.2);
     padding: 20px 20px 20px 20px;
 }
+
+progress,          /* All HTML5 progress enabled browsers */
+progress[role]     /* polyfill */
+{
+
+    /* Turns off styling - not usually needed, but good to know. */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /* gets rid of default border in Firefox and Opera. */
+    border: none;
+
+    /* Needs to be in here for Safari polyfill so background images work as expected. */
+    background-size: auto;
+    width: 100px;
+    height: 10px;
+}
+
+/* Polyfill */
+progress[role]:after {
+    background-image: none; /* removes default background from polyfill */
+}
+
+/* Ensure fallback text doesn't appear in polyfill */
+progress[role] strong {
+    display: none;
+}
+progress,                          /* Firefox  */
+progress[role][aria-valuenow] {    /* Polyfill */
+   background: #DA4F49 !important; /* !important is needed by the polyfill */
+}
+
+/* Chrome */
+progress::-webkit-progress-bar {
+    background: #DA4F49;
+}
+/* IE10 */
+progress {
+    color: #5BB75B;
+}
+
+/* Firefox */
+progress::-moz-progress-bar {
+    background: #5BB75B;
+}
+
+/* Chrome */
+progress::-webkit-progress-value {
+    background: #5BB75B;
+}
+
+/* Polyfill */
+progress[aria-valuenow]:before  {
+    background: #5BB75B;
+}

@@ -13,19 +13,19 @@
         <table id="songthread_entry_list" class="table">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Username</th>
                     <th>Listen</th>
-                    <th>Vote</th>
+                    <th>Like</th>
+                    <th></th>
+                    <th>User</th>
                 </tr>
             </thead>
             <tbody>
                 {% for song in songs %}
                     <tr>
-                        <td>{{ song.number_of_votes }}</td>
-                        <td><a href="{{ song.user.get_profile.get_absolute_url }}">{{ song.user }}</a></td>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
-                        <td>{% include "vote/vote_form.html" with vote=song.vote %}</td>
+                        <td>{% include "vote/vote_form.html" with vote=song.vote like=1 %}</td>
+                        <td>{% include "vote/vote_form.html" with vote=song.vote like=0 %}</td>
+                        <td><a href="{{ song.user.get_profile.get_absolute_url }}">{{ song.user }}</a><progress max="100" value="24" id="progress1"></progress></td>
                     </tr>
                 {% endfor %}
             </tbody>
