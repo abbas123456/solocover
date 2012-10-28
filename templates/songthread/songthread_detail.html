@@ -14,18 +14,19 @@
             <thead>
                 <tr>
                     <th>Listen</th>
+                    <th>User</th>
                     <th>Like</th>
                     <th></th>
-                    <th>User</th>
                 </tr>
             </thead>
             <tbody>
                 {% for song in songs %}
                     <tr>
                         <td><audio src="{{ song.file.url }}" preload="none"/></td>
+                        <td><a href="{{ song.user.get_profile.get_absolute_url }}">{{ song.user }}</a><progress max="{{ song.number_of_votes }}" value="{% if song.number_of_likes %}{{ song.number_of_likes }}{% else %}0{% endif %}" id="progress1"></progress><small> ({{ song.number_of_votes }})</small></td>
                         <td>{% include "vote/vote_form.html" with vote=song.vote like=1 %}</td>
                         <td>{% include "vote/vote_form.html" with vote=song.vote like=0 %}</td>
-                        <td><a href="{{ song.user.get_profile.get_absolute_url }}">{{ song.user }}</a><progress max="{{ song.number_of_votes }}" value="{% if song.number_of_likes %}{{ song.number_of_likes }}{% else %}0{% endif %}" id="progress1"></progress><small> ({{ song.number_of_votes }})</small></td>
+                        
                     </tr>
                 {% endfor %}
             </tbody>
