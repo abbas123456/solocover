@@ -15,7 +15,7 @@ env.test_apps = "account music songthread vote"
 
 def test():
     with settings(warn_only=True):
-        result = local('./manage.py test %(test_apps)s -v 2 --failfast' % env,
+        result = local('./manage.py test %(test_apps)s --settings=solocover.settings.test -v 2 --failfast' % env,
                        capture=False)
     if result.failed:
         print red_bg("Some tests failed")
@@ -69,10 +69,8 @@ def unpack(archive_path, temp_folder='/tmp/build_temp'):
 
 
 def set_production_symlinks():
-    sudo('if [ -h %(AppRoot)s/builds/live/production ]; then unlink \
-    %(AppRoot)s/builds/live/production; fi' % env)
-    sudo('ln -sv %(AppRoot)s/builds/live/%(tag)s %(AppRoot)s/builds\
-    /live/production' % env)
+    sudo('if [ -h %(AppRoot)s/builds/live/production ]; then unlink %(AppRoot)s/builds/live/production; fi' % env)
+    sudo('ln -sv %(AppRoot)s/builds/live/%(tag)s %(AppRoot)s/builds/live/production' % env)
 
 
 def apply_production_permissions():
