@@ -30,8 +30,8 @@
                 <div class="navbar navbar-static-top navbar-inverse navbar-fixed-top">
                     <div class="navbar-inner">
                         <ul class="nav">
-                            <li class="active"><a href="{% url songthread_list %}">Home</a></li>
-                            <li><a href="{% url about_page %}">About</a></li>
+                            <li{% block navBarHomeState %} class="active"{% endblock %}><a href="{% url songthread_list %}">Home</a></li>
+                            <li{% block navBarAboutState %}{% endblock %}><a href="{% url about_page %}">About</a></li>
                         </ul>
                         <form class="navbar-search pull-left">
                             <input type="text" class="search-query" placeholder="Search">
@@ -59,8 +59,11 @@
                 </div>
                 <div class="header">
                     <div class="container">
-                        <h1 class="banner">Solocover</h1>
-                        <p class="lead">Take to the stage.</p>
+                    <div class="row-fluid">
+                    <div class="span2_tight"><img width="100" height="100" src="{{ STATIC_URL }}img/logo.png" /></div>
+                    <div class="span10"><h1 class="banner">Solocover</h1>
+                        <p class="lead">Take to the stage.</p></div>
+                    </div>
                     </div>
                 </div>
                 <div id="main_body" class="container-fluid">

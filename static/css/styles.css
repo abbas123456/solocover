@@ -15,6 +15,7 @@ html, body {
     background-image:url(../img/shattered.png);
     color: black;
 }
+
 div.hero-unit {
     font-family: RegencieLight	
 }
@@ -168,6 +169,9 @@ input, button {
 }
 div .span4_tight {
     width: 30% !important
+}
+div .span2_tight {
+    width: 9% !important
 }
 div .profile_left_bar {
     background-color: rgba(0, 0, 0, 0.2);
