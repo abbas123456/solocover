@@ -3,18 +3,32 @@
 {% block title %} Profile - {{ object.username }} {% endblock %}
 {% block primary %}
 <div class="row-fluid">
-    <div class="span4 profile_left_bar">
+    <div class="span4">
         <h2>{{ object }}</h2>
-        <img src="{{ object.get_profile.get_profile_image_path }}" alt="{{ object }}">
-        <h4>Location</h4>
-        <p>{{ object.get_profile.location }}</p>
-        <h4>About me</h4>
-        <p>{{ object.get_profile.about_me }}</p>
-        <h4>Likes</h4>
-        <p>{{ object.get_profile.likes }}</p>
-        <h4>Dislikes</h4>
-        <p>{{ object.get_profile.dislikes }}</p>
-        
+        <div class="profile_left_bar">
+            <img src="{{ object.get_profile.get_profile_image_path }}" alt="{{ object }}">
+        </div>
+        <hr />
+        <div class="profile_left_bar">
+            <h4>Location</h4>
+            <p>{{ object.get_profile.location }}</p>
+        </div>
+        <hr />
+        <div class="profile_left_bar">
+            <h4>About me</h4>
+            <p>{{ object.get_profile.about_me }}</p>
+        </div>
+        <hr />
+        <div class="profile_left_bar">
+            <h4>Likes</h4>
+            <p>{{ object.get_profile.likes }}</p>
+        </div>
+        <hr />
+        <div class="profile_left_bar">
+            <h4>Dislikes</h4>
+            <p>{{ object.get_profile.dislikes }}</p>
+        </div>
+        <hr />
     </div>
     <div class="span8">
     <h2>All entries</h2>
