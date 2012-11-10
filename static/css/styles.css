@@ -153,7 +153,9 @@ input, button {
     font-family: inherit;
 }
 #songthread_canvas_container {
-    background-color: rgba(204, 204, 204, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    
 }
 
 #frame {
@@ -172,6 +174,9 @@ div .span4_tight {
 }
 div .span2_tight {
     width: 9% !important
+}
+div .span3_tight {
+    width: 22% !important
 }
 div .profile_left_bar {
     background-color: rgba(0, 0, 0, 0.2);

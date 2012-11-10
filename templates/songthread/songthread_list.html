@@ -1,28 +1,25 @@
 {% extends "base.html" %}
 {% block title %} Current threads {% endblock %}
 {% block primary %}
-    <div class="span3">
-        <h3>Latest threads</h3>
-        <p><small>Click on the <i class="icon-search"></i> icon to view the thread</small></p>
+    <div class="row-fluid">
+        <h3>Featured threads</h3>
         {% for songthread in latest_songthreads %}
-            <div class="row-fluid">
-            <div class="span9"><iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe></div>
-            <div class="span3"><a class="btn btn-inverse btn-large" href="{{ songthread.get_absolute_url }}"><i class="icon-white icon-search"></i></a></div>
-            
-            
+            <div class="span3_tight">
+                <p><a href="{{ songthread.get_absolute_url }}">View thread</a></p>
+                <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="380" frameborder="0" allowtransparency="true"></iframe>
             </div>
         {% endfor %}
-        <p><a class="btn btn-primary btn-large" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Start your own</a></p>
    </div>
+   <p><a class="btn btn-primary btn-large" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Start your own</a></p>
+   <div class="row-fluid">
     <div class="span7" id="content">
-        <h3 align="center">Most popular threads</h3>
-        <p><small>Use your mouse to drag and view the different threads. You can zoom in and out with your scroll wheel</small></p>
+        <h3>Active threads</h3>
         {% if object_list|length == 0 %}
             <p>There are currently no threads</p>
         {% endif %}
 
         <div id="songthread_canvas_container">
-            <canvas width="647" height="585" id="songthread_canvas">
+            <canvas width="647" height="420" id="songthread_canvas">
             </canvas>
         </div>
         <div id="songthread_tags">
@@ -34,15 +31,23 @@
         </div>
     </div>
     <div id="top_users" class="span2">
-        <h3 class="pull-right">Top users</h3>
+        <h3>Top users</h3>
         <ul class="thumbnails">
             {% for user in top_users %}
-                <li class="span12">
+                <li class="span8">
                     <a href="{{ user.get_profile.get_absolute_url }}" class="thumbnail">
                         <img src="{{ user.get_profile.get_profile_image_path}}" alt="{{ user }}">
                     </a>
                 </li>
             {% endfor %}
        </ul>
+   </div>
+   <div class="span3">
+        <h3>Latest threads</h3>
+        {% for songthread in latest_songthreads %}
+            <iframe src="{{ spotify_embed_url }}{{ songthread.track.spotify_uri }}" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
+            <p><small><a href="{{ songthread.get_absolute_url }}">View thread</a></small></p>
+        {% endfor %}
+   </div>
    </div>
 {% endblock %}

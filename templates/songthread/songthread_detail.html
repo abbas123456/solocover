@@ -37,6 +37,7 @@
 <div class="row-fluid">
     <div class="span4">
         <p>This thread was created by <strong><a href="{{ object.user.get_profile.get_absolute_url }}">{{ object.user }}</a></strong></p>
+        <p><a class="btn btn-primary btn-large" href="{% url songthread_create %}"><i class="pre-text icon-plus icon-white"></i>Start your own</a></p>
     </div>
     <div class="span8">
         <hr id="comments_header" />
