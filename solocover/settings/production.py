@@ -1,3 +1,6 @@
+import djcelery #@UnresolvedImport
+djcelery.setup_loader()
+
 # Django settings for YouSingDotCom project.
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -125,6 +128,7 @@ INSTALLED_APPS = (
     'south',
     'django.contrib.admindocs',
     'django.contrib.sitemaps',
+    'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -170,3 +174,8 @@ FILE_UPLOAD_HANDLERS = (
 )
 
 AUTH_PROFILE_MODULE = 'account.UserProfile'
+
+TWITTER_OAUTH_TOKEN = '940206493-xemYgSFBFVVztsTJv5nrtkDmob1W6QExdAskCaXb'
+TWITTER_OAUTH_SECRET = '5VCxKjoHssEei6YUqAhoII9UEOX8Mp3zcVT6FKM0MA'
+TWITTER_CONSUMER_KEY = 'qeEwpf8CaJa6jga1NGOenA'
+TWITTER_CONSUMER_SECRET = 'qDvhVMXYjbcv2cr3Mir1S1h90p0C7Hjusg3XLn0Zo8'

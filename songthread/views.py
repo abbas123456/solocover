@@ -30,7 +30,7 @@ class SongthreadListView(ListView):
         context = super(SongthreadListView, self).get_context_data(**kwargs)
         context['spotify_embed_url'] = SPOTIFY_EMBED_URL
         context['latest_songthreads'] = Songthread.objects.all()\
-            .order_by('-created_date')[0:5]
+            .order_by('-created_date')[0:4]
         context['top_users'] = User.objects.all()\
             .exclude(username='Anonymous')\
             .annotate(number_of_likes=Sum('song__vote__like'))\

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.core.files import File
 from subprocess import CalledProcessError
-
+from songthread.tasks import tweet_about_new_comment, tweet_about_new_song, tweet_about_new_songthread
 from music.models import Track
 
 import mimetypes
@@ -22,7 +22,8 @@ class Songthread(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.track.name)
-        return super(Songthread, self).save(*args, **kwargs)
+        super(Songthread, self).save(*args, **kwargs)
+        tweet_about_new_songthread.delay(self) #@UndefinedVariable
 
     @models.permalink
     def get_absolute_url(self):
@@ -57,9 +58,12 @@ class Song(models.Model):
                 new_file = File(open(new_file_path))
                 self.file.save(self.file.name + '.mp3', new_file)
                 os.remove(new_file.name)
+                tweet_about_new_song.delay(self) #@UndefinedVariable
             except CalledProcessError:
                 self.delete()
                 raise
+        else:
+            tweet_about_new_song.delay(self) #@UndefinedVariable
 
 
 class Comment(models.Model):
@@ -68,3 +72,7 @@ class Comment(models.Model):
     content = models.TextField()
     in_reply_to = models.ForeignKey('self', blank=True, null=True)
     created_date = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        tweet_about_new_comment.delay(self) #@UndefinedVariable
+        return super(Comment, self).save(*args, **kwargs)
