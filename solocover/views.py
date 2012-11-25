@@ -9,6 +9,9 @@ from django.core.urlresolvers import reverse
 class AboutPageView(TemplateView):
     template_name = "solocover/about.html"
     
+class ChatPageView(TemplateView):
+    template_name = "solocover/chat.html"
+    
 class LandingPageView(TemplateView):
 
     template_name = "solocover/landing.html"

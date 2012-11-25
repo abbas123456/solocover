@@ -7,7 +7,7 @@ from songthread.views import SongthreadListView, SongthreadDetailView, \
     SongthreadCreateView, SongCreateView, CommentCreateView
 from django.contrib.auth.decorators import login_required
 from vote.views import VoteCreateView
-from solocover.views import LandingPageView, AboutPageView
+from solocover.views import LandingPageView, AboutPageView, ChatPageView
 from account.views import UserCreateView, UserUpdateView, UserDetailView
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from songthread.models import Songthread
@@ -34,6 +34,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', LandingPageView.as_view(), name='landing_page'),
     url(r'^about/$', AboutPageView.as_view(), name='about_page'),
+    url(r'^chat/$', ChatPageView.as_view(), name='chat_page'),
     url(r'^threads/$', SongthreadListView.as_view(), name='songthread_list'),
     url(r'^thread/add/$', SongthreadCreateView.as_view(),
         name='songthread_create'),

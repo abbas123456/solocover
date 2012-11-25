@@ -31,6 +31,7 @@
                     <div class="navbar-inner">
                         <ul class="nav">
                             <li{% block navBarHomeState %} class="active"{% endblock %}><a href="{% url songthread_list %}">Home</a></li>
+                            <li{% block navBarChatState %}{% endblock %}><a href="{% url chat_page %}">Chat</a></li>
                             <li{% block navBarAboutState %}{% endblock %}><a href="{% url about_page %}">About</a></li>
                         </ul>
                         <form class="navbar-search pull-left">
