@@ -11,7 +11,7 @@ class AbstractSitemapClass():
 
 
 class StaticSitemap(Sitemap):
-    pages = {'home': '/', 'threads': '/threads/', 'about': '/about/'}
+    pages = {'home': '/', 'threads': '/threads/', 'about': '/about/', 'chat': '/chat/'}
     main_sitemaps = []
     for page in pages.keys():
         sitemap_class = AbstractSitemapClass()
