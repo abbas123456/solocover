@@ -1,81 +1,76 @@
-from fabric.api import local, run, sudo, env, settings
-from fabric.colors import green
-from fabric.context_managers import cd
-from fabric.operations import put, prompt
-from datetime import datetime
-from fabconfig import *
-from fabric.colors import _wrap_with
-
-green_bg = _wrap_with('42')
-red_bg = _wrap_with('41')
-
-# Set the list of apps to test
-env.test_apps = "account music songthread vote"
+import sys
+import time
+from fabric.api import sudo, local, put
 
 
-def test():
-    with settings(warn_only=True):
-        result = local('./manage.py test %(test_apps)s --settings=solocover.settings.test -v 2 --failfast' % env,
-                       capture=False)
-    if result.failed:
-        print red_bg("Some tests failed")
-    else:
-        print
-        print green_bg("All tests passed - have a banana!")
+try:
+    from fabconfig import *
+except ImportError:
+    print "You need to define a fabconfig.py file with your project settings"
+    sys.exit()
 
+def build_images():
+    notify("Building docker images")
+    local('git checkout %s' % env.tag)
+    local('cp .docker/db/Dockerfile .')
+    local('docker build -t %(registry)s/vanspr_db:%(tag)s .' % env)
+    local('cp .docker/app/Dockerfile .')
+    local('docker build -t %(registry)s/vanspr_app:%(tag)s .' % env)
+    local('git checkout -')
+
+def push_images():
+    notify("Pushing images to registry")
+    local('docker push %(registry)s/vanspr_db:%(tag)s' % env)
+    local('docker push %(registry)s/vanspr_app:%(tag)s' % env)
+
+def pull_app_image():
+    notify("Pulling app image from registry")
+    sudo('docker pull %(registry)s/vanspr_app:%(tag)s' % env)
+
+def pull_db_image():
+    notify("Pulling db image from registry")
+    sudo('docker pull %(registry)s/vanspr_db:%(tag)s' % env)
+
+def run_app_container():
+    notify("Running app containers")
+    sudo(env.app_run_command)
+
+def run_db_container():
+    notify("Running db containers")
+    sudo(env.db_run_command)
+
+def deploy_nginx_config():
+    notify("Deploying nginx config")
+    put('deploy/nginx.tpl', 'nginx.tpl')
+    put('deploy/htpasswd', 'htpasswd')
+    sudo('mv nginx.tpl %(nginx_config)s' % env)
+    sudo('cp htpasswd /etc/nginx/')
+    sudo("sed -i 's#{{ public_folder }}#%(public_folder)s#g' %(nginx_config)s" % env)
+    sudo("sed -i 's#{{ uwsgi_port }}#%(uwsgi_port)s#g' %(nginx_config)s" % env)
+    sudo("sed -i 's#{{ server_name }}#%(server_name)s#g' %(nginx_config)s" % env)
+    sudo("/etc/init.d/nginx reload")
+
+def post_deployment():
+    notify("Migrating and collecting static")
+    # This is necessary to give the db container enough time to start
+    time.sleep(2)
+    sudo('%s %s' % (env.adhoc_command, 'make install'))
+
+def adhoc_command():
+    notify("Running adhoc command")
+    command = prompt(red('Enter command you wish to execute on app container'))
+    sudo('%s %s' % (env.adhoc_command, command))
+
+def build():
+    build_images()
+
+def push():
+    push_images()
 
 def deploy():
-    env.user = prompt('Username for remote host?')
-    print(green('Got user %s' % env.user))
-    archive_file_path = '/tmp/build-%s.tar.gz' % datetime.now()
-    archive_file_path = archive_file_path.replace(' ', '')
-    print(green("Archiving file"))
-    archive(archive_file_path, env.branch)
-    print(green("Uploading file"))
-    upload(archive_file_path, archive_file_path)
-    print(green("Unpacking archive"))
-    unpack(archive_file_path)
-    print(green("Setting symlinks"))
-    set_production_symlinks()
-    print(green("Applying permissions"))
-    apply_production_permissions()
-    print(green("Reloading apache"))
-    reload_apache()
-
-
-def archive(archive_file, reference):
-    local('git archive %s | gzip > %s ' % (reference, archive_file))
-
-
-def upload(local_path, remote_path):
-    put(local_path, remote_path)
-    local('rm -f %s' % local_path)
-
-
-def unpack(archive_path, temp_folder='/tmp/build_temp'):
-    run('if [ -d "%s" ]; then rm -rf "%s"; fi' % (temp_folder, temp_folder))
-    run('mkdir -p %s' % temp_folder)
-
-    with cd('%s' % temp_folder):
-        run('tar xzf %s' % archive_path)
-        sudo('if [ -d "%(BuildRoot)s" ]; then rm -rf "%(BuildRoot)s"; fi'
-             % env)
-        sudo('mkdir -p %s' % env.BuildRoot)
-
-    sudo('mv %s/* %s' % (temp_folder, env.BuildRoot))
-
-    run('rm -rf %s' % temp_folder)
-    run('rm -f %s' % archive_path)
-
-
-def set_production_symlinks():
-    sudo('if [ -h %(AppRoot)s/builds/live/production ]; then unlink %(AppRoot)s/builds/live/production; fi' % env)
-    sudo('ln -sv %(AppRoot)s/builds/live/%(tag)s %(AppRoot)s/builds/live/production' % env)
-
-
-def apply_production_permissions():
-    sudo('chown -R www-data:www-data %(BuildRoot)s' % env)
-
-
-def reload_apache():
-    sudo('/etc/init.d/apache2 reload')
+    pull_db_image()
+    pull_app_image()
+    run_db_container()
+    run_app_container()
+    post_deployment()
+    deploy_nginx_config()
